@@ -5,7 +5,9 @@ var GridCordPrev = "undefined";
 var GridCordNext = "undefined";
 var imagedata;
 var background;
+var gridD = 40;
 
+var score = 0;
 function whichGrid()
 {
 
@@ -15,8 +17,8 @@ function whichGrid()
  
 
      return {
-      x: Math.floor(my_x/30),
-      y: Math.floor(my_y/30)
+      x: Math.floor(my_x/gridD),
+      y: Math.floor(my_y/gridD)
     };
 	
 
@@ -62,24 +64,24 @@ function MarkGrid(grid_x, grid_y)
  // imagedata.data[0] = 255-imagedata.data[0];
   
   //var j = 0;
-  for(i=0;i<30;i++)
+  for(i=0;i<gridD;i++)
   {
   
     // alert("wtf");
-       ctx.putImageData(imagedata, grid_x*30+i, grid_y*30);
+       ctx.putImageData(imagedata, grid_x*gridD+i, grid_y*gridD);
   }
-   for(i=0;i<30;i++)
+   for(i=0;i<gridD;i++)
   {
-       ctx.putImageData(imagedata, grid_x*30+30-1, grid_y*30+i);
+       ctx.putImageData(imagedata, grid_x*gridD+gridD-1, grid_y*gridD+i);
   }
-   for(i=0;i<30;i++)
+   for(i=0;i<gridD;i++)
   {
-       ctx.putImageData(imagedata, grid_x*30+30-1-i, grid_y*30+30-1);
+       ctx.putImageData(imagedata, grid_x*gridD+gridD-1-i, grid_y*gridD+gridD-1);
   }
   
-  for(i=0;i<30;i++)
+  for(i=0;i<gridD;i++)
   {
-       ctx.putImageData(imagedata, grid_x*30, grid_y*30+30-1-i);
+       ctx.putImageData(imagedata, grid_x*gridD, grid_y*gridD+gridD-1-i);
   }
   
    //alert("After spiral painting");
@@ -87,7 +89,31 @@ function MarkGrid(grid_x, grid_y)
 
 
 }
+function AdjacentOrNot( GridLeft,  GridRight){
 
+
+ 
+ //return true if adjacent
+ //reture false if not adjacent
+ //four checked, north, east, west, south
+ 
+ //North
+ if(GridLeft.x == GridRight.x && GridLeft.y == GridRight.y+1)
+    return true;
+	
+ if(GridLeft.x == GridRight.x && GridLeft.y == GridRight.y -1 )
+    return true;
+	
+ if(GridLeft.y == GridRight.y && GridLeft.x == GridRight.x -1)
+    return true;
+	
+  if(GridLeft.y == GridRight.y && GridLeft.x == GridRight.x +1)
+    return true;
+	
+	
+	return false;
+
+}
 function makeSelection()
 {
  // alert("top");
@@ -104,11 +130,21 @@ function makeSelection()
    
   unMarkGrid(GridCordPrev.x, GridCordPrev.y);
   // allClear();
-   GridCordPrev = whichGrid();
-   MarkGrid(GridCordPrev.x, GridCordPrev.y);
+  GridCordNext = whichGrid();
    
+   MarkGrid(GridCordNext.x, GridCordNext.y);
+   if(AdjacentOrNot(GridCordPrev, GridCordNext) == true && picasso[GridCordPrev.y][GridCordPrev.x] == picasso[GridCordNext.y][GridCordNext.x])
+   {
+       //call function to clear both of these grids
+		// yes they are gone
+		
+	//	unMarkGrid(GridCordNext.x, GridCordNext.y);
+      alert("yahoo!");
    
+   }
    
+   GridCordPrev = GridCordNext;
+   //GridCordNext = "undefined";
    } 
   
    
@@ -171,7 +207,7 @@ function drawPicasso(){
 	img.src = "shape"+picasso[i][j]+".jpg";  //alert(img);
 	
 	//alert(img.src);
-	ctx.drawImage(img,j*30,i*30, 30, 30);
+	ctx.drawImage(img,j*gridD,i*gridD, gridD, gridD);
      
 	 
 	 
@@ -200,7 +236,7 @@ function drawRandom()
 	
 	 var img = new Image();
 	img.src = "shape"+randomGenerator()+".jpg";  //alert(img);
-	ctx.drawImage(img,j*30,i*30, 30, 30);
+	ctx.drawImage(img,j*gridD,i*gridD, gridD, gridD);
      }
    }
 
