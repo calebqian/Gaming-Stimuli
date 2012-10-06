@@ -9,8 +9,8 @@ var gridD = 40;
 var TimeLimit = 15000; //in ms
 var intervalHandler;
 var countDownStart; // the time between Jan 1st, 1970 and the start
-
-
+var ImagePool;
+var EmptyImage;
 
 var score = 0;
 function whichGrid()
@@ -41,13 +41,12 @@ function allClear()
 }
 */
 
-function shadow(grid_x, grid_y)
+function shadowPreload()
 {
    //this function shadows the graphics
 	// mark the value in matrix as -1
 	// 
-	var c = document.getElementById("myCanvas");
-	var context =  c.getContext('2d');
+	
 	//var temp;
   //  var i;
 //	var j;
@@ -73,11 +72,16 @@ function shadow(grid_x, grid_y)
 	
 	}
 */
-var img = new Image();
-	img.src = "empty.jpg";  //alert(img);
-	
+	EmptyImage = new Image();
+	EmptyImage.src = "empty.jpg";  //alert(img);
+	EmptyImage.shadowHer = function(x, y)
+	{
+		var c = document.getElementById("myCanvas");
+		var context =  c.getContext('2d');
+		context.drawImage(this, x*gridD, y*gridD);
+	};
 	//empty image to cover the -1 grid
-	context.drawImage(img, grid_x*gridD, grid_y*gridD);
+	
 
 
 }
@@ -246,8 +250,8 @@ function makeSelection()
 	
    // GridCordPrev = "undefined";
 	//GridCordNext = "undefined";
-     shadow(GridCordPrev.x, GridCordPrev.y);
-     shadow(GridCordNext.x, GridCordNext.y);
+     EmptyImage.shadowHer(GridCordPrev.x, GridCordPrev.y);
+     EmptyImage.shadowHer(GridCordNext.x, GridCordNext.y);
 	 picasso[GridCordPrev.y][GridCordPrev.x] =-1;
 	  picasso[GridCordNext.y][GridCordNext.x] = -1;
       score++;
@@ -310,18 +314,39 @@ function drawPicasso(){
    //alert(c);
       var ctx=c.getContext("2d");
   //alert(ctx);
-  
+  ImagePool = new Array(9);
   
   for(i = 0;i<9;i++)
    {
-   
+    ImagePool[i] = new Array(9);
     
     for(j=0;j<9;j++){
 	
-	var img = new Image();
+	ImagePool[i][j] = new Image();
 	
-	img.src = "shape"+picasso[i][j]+".jpg";  //alert(img);
-    img.onload = function(){
+	ImagePool[i][j].src = "shape"+picasso[i][j]+".jpg";  //alert(img);
+	ImagePool[i][j].i = i;
+	ImagePool[i][j].j = j;
+	
+    ImagePool[i][j].onload = function(){
+        
+      var c = document.getElementById("myCanvas");
+   //alert(c);
+      var ctx=c.getContext("2d");
+      //  alert("Hello");
+    //  alert(this);
+    
+
+
+      ctx.drawImage(this,this.j*gridD,this.i*gridD, gridD, gridD);
+      if(this.i==0&&this.j==0)
+	{
+
+
+		 imagedata = ctx.getImageData(0, 0, 1, 1); 
+	}    
+
+
   // execute drawImage statements here
     };
 	//alert(img.src);
@@ -334,8 +359,7 @@ function drawPicasso(){
 	
 	}*/
 	
-        ctx.drawImage(img,j*gridD,i*gridD, gridD, gridD);
-    
+       
 
 	
      
@@ -345,7 +369,7 @@ function drawPicasso(){
    }
 
 }
-
+/*
 function drawRandom()
 {
 
@@ -373,7 +397,7 @@ function drawRandom()
 
 }
 
-
+*/
 function randomGenerator()
 {
     var randomnumber=Math.floor(Math.random()*9);
@@ -435,9 +459,10 @@ c.addEventListener('mousemove', function(evt) {
    enlightPicasso();
  //  alert("test");
   // drawRandom();
+  shadowPreload();
    drawPicasso();
 
-   imagedata = context.getImageData(0, 0, 1, 1); 
+  
    
    
    setCountDown();
