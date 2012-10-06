@@ -319,10 +319,25 @@ function drawPicasso(){
     for(j=0;j<9;j++){
 	
 	var img = new Image();
-	img.src = "shape"+picasso[i][j]+".jpg";  //alert(img);
 	
+	img.src = "shape"+picasso[i][j]+".jpg";  //alert(img);
+    img.onload = function(){
+  // execute drawImage statements here
+    };
 	//alert(img.src);
-	ctx.drawImage(img,j*gridD,i*gridD, gridD, gridD);
+	/*while(1)
+	{
+	
+	  // alert(img.complete);
+	   if(img.complete)
+	      break;
+	
+	}*/
+	
+        ctx.drawImage(img,j*gridD,i*gridD, gridD, gridD);
+    
+
+	
      
 	 
 	 
