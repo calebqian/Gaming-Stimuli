@@ -6,6 +6,11 @@ var GridCordNext = "undefined";
 var imagedata;
 var background;
 var gridD = 40;
+var TimeLimit = 15000; //in ms
+var intervalHandler;
+var countDownStart; // the time between Jan 1st, 1970 and the start
+
+
 
 var score = 0;
 function whichGrid()
@@ -36,7 +41,46 @@ function allClear()
 }
 */
 
+function shadow(grid_x, grid_y)
+{
+   //this function shadows the graphics
+	// mark the value in matrix as -1
+	// 
+	var c = document.getElementById("myCanvas");
+	var context =  c.getContext('2d');
+	//var temp;
+  //  var i;
+//	var j;
+	/*
+	temp = context.getImageData(0, 0, 1, 1); 
+	temp.data[0] = 0;
+    temp.data[1] = 0;
+    temp.data[2] = 0;
+	for(i=0;i<gridD;i++)
+	{
+	    for(j=0;j<gridD;j++)
+		{
+		
+		   //draw black pixels here
+		    
+			
+		//	alert(temp);
+		   
+			//temp.data[3] = 0.5;
+			context.putImageData(temp, grid_x*gridD+i, grid_y*gridD+j);
+		}
+		
+	
+	}
+*/
+var img = new Image();
+	img.src = "empty.jpg";  //alert(img);
+	
+	//empty image to cover the -1 grid
+	context.drawImage(img, grid_x*gridD, grid_y*gridD);
 
+
+}
 function unMarkGrid(grid_x, grid_y)
 {
  
@@ -114,8 +158,68 @@ function AdjacentOrNot( GridLeft,  GridRight){
 	return false;
 
 }
+
+
+function setCountDown()
+{
+    var d = new Date();
+    var n = d.getTime();
+   countDownStart = n;
+
+
+}
+
+function calculateCountDownMSec()
+{
+
+ var d = new Date();
+    var n = d.getTime(); //the time right now
+	
+	return n-countDownStart;
+
+}
+
+function checkCountComplete(countDownMSec)
+{
+    if(TimeLimit - countDownMSec <=0)
+	   return true;
+	   
+	return false;
+
+
+}
+
+
+/*function CountDownClockUpdate()
+{
+
+
+}
+*/
+
+function updateScoreTest()
+{
+   
+
+
+   var c = document.getElementById("score");
+   c.value = score;
+   
+   
+
+
+}
+
 function makeSelection()
 {
+
+  GridCordNext = whichGrid();
+  if(picasso[GridCordNext.y][GridCordNext.x]== -1)
+  {
+       return;
+  
+  }
+
  // alert("top");
   if(GridCordPrev == "undefined")
   {
@@ -139,8 +243,19 @@ function makeSelection()
 		// yes they are gone
 		
 	//	unMarkGrid(GridCordNext.x, GridCordNext.y);
-      alert("yahoo!");
-   
+	
+   // GridCordPrev = "undefined";
+	//GridCordNext = "undefined";
+     shadow(GridCordPrev.x, GridCordPrev.y);
+     shadow(GridCordNext.x, GridCordNext.y);
+	 picasso[GridCordPrev.y][GridCordPrev.x] =-1;
+	  picasso[GridCordNext.y][GridCordNext.x] = -1;
+      score++;
+	  
+	  updateScoreTest();
+	  //alert(score);
+	//alert("yahoo!");
+    //return;
    }
    
    GridCordPrev = GridCordNext;
@@ -260,6 +375,32 @@ function randomGenerator()
       }
 	  
 
+function StartCountDownThread() {
+   // var c = document.getElementById("myCanvas");
+	//var context = c.getContext("2d");
+	
+		var count = calculateCountDownMSec();
+	if(checkCountComplete(count)==true)
+	{
+	
+	   window.clearInterval(intervalHandler);
+	    return;
+	
+	}
+	var inputText = document.getElementById("Clock");
+
+	var diff = TimeLimit - count;
+var sec = diff/1000;
+	inputText.value = sec.toString();
+	
+	
+	
+//	alert("ready");
+};
+
+
+
+
 
 window.onload = function(event){
 
@@ -282,6 +423,12 @@ c.addEventListener('mousemove', function(evt) {
    drawPicasso();
 
    imagedata = context.getImageData(0, 0, 1, 1); 
+   
+   
+   setCountDown();
+   
+   
+   intervalHandler = setInterval(StartCountDownThread, 0); // this creates a new "thread," but doesn't make much sense to the untrained eye.
 //alert("123");
 //background =  Color(imagedata[0], imagedata[1], imagedata[2], imagedata[3]);
  // alert("test2");
