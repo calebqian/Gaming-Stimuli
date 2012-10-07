@@ -6,6 +6,7 @@ var GridCordNext = "undefined";
 var imagedata;
 var background;
 var gridD = 40;
+var dimension = 9; //9x9
 var TimeLimit = 15000; //in ms
 var intervalHandler;
 var countDownStart; // the time between Jan 1st, 1970 and the start
@@ -213,7 +214,59 @@ function updateScoreTest()
 
 
 }
+function grayShadow()
+{
 
+//http://en.wikipedia.org/wiki/Grayscale
+   var c = document.getElementById("myCanvas");
+   var i;
+  
+   var ctx = c.getContext("2d");
+
+	
+	//alert("test");
+	  var imgd = ctx.getImageData(0, 0, dimension*gridD, dimension*gridD);
+    
+	 
+	 
+	 
+	var len = imgd.data.length;
+    // alert(len);
+for(i = 0;i<len;i+=4){
+
+
+   	 var R =  imgd.data[i];
+      var G =  imgd.data[i+1];
+      var B =  imgd.data[i+2];
+      var luma = 0.2126*R + 0.7152*G+0.0722*B;
+
+	  	 imgd.data[i] = luma;
+       imgd.data[i+1] = luma;
+      imgd.data[i+2] = luma;
+
+   
+   }
+     ctx.putImageData(imgd,0,0);
+
+}
+
+function disableControl()
+{
+
+   
+   var c = document.getElementById ("myCanvas");
+    c.removeAttribute("onClick");
+	
+  alert("??");
+}
+
+
+
+function resetGame()
+{
+
+
+}
 function makeSelection()
 {
 
@@ -421,8 +474,10 @@ function StartCountDownThread() {
 		var count = calculateCountDownMSec();
 	if(checkCountComplete(count)==true)
 	{
-	
+	   //alert("check");
 	   window.clearInterval(intervalHandler);
+	   grayShadow();
+	   disableControl();
 	    return;
 	
 	}
