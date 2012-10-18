@@ -5,18 +5,14 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
 
 
-
 </head>
 <body>
 <div id="frameContainer"></div>
 <script type="text/javascript">
-onload=function(){
-var el=document.getElementById("frameContainer")
-el.innerHTML="<iframe id='maybe' height = 600 width=900 src=\"game-easy.html\"></iframe>"
-}
+$("#frameContainer").load("game-easy.html");  
 </script>
 
-<input type="button" value = "click me to switch" onclick="var c = document.getElementById('maybe'); c.src='https://mediaillinois.us2.qualtrics.com/SE/?SID=SV_ewI7RG7RtNMOBGR';">   </input>
+<input type="button" value = "click me to switch" onclick="$('#frameContainer').load('game-hard.html'); ">   </input>
 
 
 </body>

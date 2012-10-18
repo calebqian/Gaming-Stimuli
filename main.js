@@ -1,4 +1,4 @@
-
+var pairs = 0;
 var picasso;
 var mousePos;
 var GridCordPrev = "undefined";
@@ -12,7 +12,9 @@ var intervalHandler;
 var countDownStart; // the time between Jan 1st, 1970 and the start
 var ImagePool;
 var EmptyImage;
-
+var hardness = 0; //hardnesss of the game, 0: pair, 1: one between
+var threshold = 42;
+var args=1;
 var score = 0;
 function whichGrid()
 {
@@ -138,15 +140,28 @@ function MarkGrid(grid_x, grid_y)
 
 
 }
+
+
+function IfGappedByOne(GridLeft, GridRight)
+{
+ if(GridLeft.x == GridRight.x && GridLeft.y == GridRight.y+2)
+    return true;
+	
+ if(GridLeft.x == GridRight.x && GridLeft.y == GridRight.y -2 )
+    return true;
+	
+ if(GridLeft.y == GridRight.y && GridLeft.x == GridRight.x -2)
+    return true;
+	
+  if(GridLeft.y == GridRight.y && GridLeft.x == GridRight.x +2)
+    return true;
+	
+	
+	return false;
+}
+
 function AdjacentOrNot( GridLeft,  GridRight){
 
-
- 
- //return true if adjacent
- //reture false if not adjacent
- //four checked, north, east, west, south
- 
- //North
  if(GridLeft.x == GridRight.x && GridLeft.y == GridRight.y+1)
     return true;
 	
@@ -208,8 +223,12 @@ function updateScoreTest()
 
 
    var c = document.getElementById("score");
+   var d = document.getElementById("discoveryPercent");
+   var e = document.getElementById("totalPairs");
+   pairs = countGaps(args);
+   e.value = pairs;
    c.value = score;
-   
+   d.value = Math.round((score/(score+pairs))*100)+"%";
    
 
 
@@ -257,7 +276,7 @@ function disableControl()
    var c = document.getElementById ("myCanvas");
     c.removeAttribute("onClick");
 	
-  alert("??");
+  //alert("??");
 }
 
 
@@ -267,6 +286,10 @@ function resetGame()
 
 
 }
+
+
+
+
 function makeSelection()
 {
 
@@ -294,7 +317,11 @@ function makeSelection()
   GridCordNext = whichGrid();
    
    MarkGrid(GridCordNext.x, GridCordNext.y);
-   if(AdjacentOrNot(GridCordPrev, GridCordNext) == true && picasso[GridCordPrev.y][GridCordPrev.x] == picasso[GridCordNext.y][GridCordNext.x])
+   var checkfunction = AdjacentOrNot;
+   if(hardness == 1)
+    checkfunction = IfGappedByOne;
+   
+   if(checkfunction(GridCordPrev, GridCordNext) == true && picasso[GridCordPrev.y][GridCordPrev.x] == picasso[GridCordNext.y][GridCordNext.x])
    {
        //call function to clear both of these grids
 		// yes they are gone
@@ -451,9 +478,129 @@ function drawRandom()
 }
 
 */
+function countGaps(distance){
+
+    var counter = 0;
+	var i, j;
+	for(i=0;i<dimension-distance;i++)
+	{
+		for(j=0;j<dimension-distance;j++)
+		{
+			if(picasso[i][j]!=-1)
+			{
+			
+			 if(picasso[i][j] == picasso[i][j+distance]){
+				counter++;
+				}
+			 if(picasso[i][j] == picasso[i+distance][j]){
+			    counter++;
+			}
+			
+			}
+		
+		
+		}
+	
+	
+	}
+	//manipulate corner cases
+	var offset = 1;
+	for(offset = 1;offset<=distance;offset++){
+	for(j=0;j<dimension-distance;j++)
+	{
+	   if(picasso[dimension-offset][j]!=-1)
+	   {
+			if(picasso[dimension-offset][j]==picasso[dimension-offset][j+distance])
+				counter++;
+	   
+	   
+	   }
+	
+	}
+	for(i=0;i<dimension-distance;i++)
+	{
+		if(picasso[i][dimension-offset]!=-1)
+		{
+			if(picasso[i][dimension-offset]==picasso[i+distance][dimension-offset])
+				counter++;
+		
+		
+		}
+	
+	
+	
+	}
+	}
+	return counter;
+
+
+}
+
+function countPairs()
+{
+    var counter = 0;
+	var i,j;
+	for(i=0;i<dimension-1;i++)
+	{
+		for(j=0;j<dimension-1;j++)
+		{
+		
+		   if(picasso[i][j]!=-1){
+		    if(picasso[i][j] == picasso[i][j+1]){
+				counter++;
+				}
+			 if(picasso[i][j] == picasso[i+1][j]){
+			    counter++;
+			}
+			
+			}
+		}
+	
+	
+	
+	}
+	
+	for(j=0;j<dimension-1;j++)
+	{
+	   if(picasso[dimension-1][j]!=-1)
+	   {
+			if(picasso[dimension-1][j]==picasso[dimension-1][j+1])
+				counter++;
+	   
+	   
+	   }
+	
+	}
+	for(i=0;i<dimension-1;i++)
+	{
+		if(picasso[i][dimension-1]!=-1)
+		{
+			if(picasso[i][dimension-1]==picasso[i+1][dimension-1])
+				counter++;
+		
+		
+		}
+	
+	
+	
+	}
+	
+	//if(picasso[dimension-1][dimension-1]==picasso[dimension-2][dimension-1]&&picasso[dimension-1][dimension-1]==picasso[dimension-1][dimension-2])
+		//counter--;
+	
+	
+     
+	return counter;
+
+
+
+}
+
+
+
 function randomGenerator()
 {
-    var randomnumber=Math.floor(Math.random()*9);
+    var randomnumber=Math.floor(Math.random()*3);
 
     return randomnumber+1;
 }
@@ -511,15 +658,30 @@ c.addEventListener('mousemove', function(evt) {
    //insert function to draw the matrix
    // NxN, where N = 9
    // pixel width 976, height 445
-   enlightPicasso();
+  //var countFunction = countPairs;
+  //if(hardness==1)
+//	countFunction = countGaps;
+	
+  
+  if(hardness==1)
+	args = 2;
+do{
+  enlightPicasso();
+  }
+  while((pairs=countGaps(args))<threshold);
+   
+   
  //  alert("test");
   // drawRandom();
   shadowPreload();
    drawPicasso();
 
   
-   
-   
+  
+   var display = document.getElementById("totalPairs");
+   display.value = pairs;
+   var p = document.getElementById("discoveryPercent");
+   p.value = Math.round((score/(score+pairs))*100)+"%";
    setCountDown();
    
    
