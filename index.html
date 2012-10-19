@@ -4,11 +4,11 @@
 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
-<script type="text/javascript" src="jquery.xdomainajax.js"></script>
+<script type="text/javascript" src="jquery.autoheight.js"></script>
 
 <script type="text/javascript">
 
-
+/*
  function testing () {
          $.ajax({
            url: 'https://mediaillinois.qualtrics.com/SE/?SID=SV_ewI7RG7RtNMOBGR',
@@ -20,10 +20,29 @@
 		 $('#test').html(res.responseText);
            }
          });
-       }
+       }*/
+	   
+	   var src_ct = 0;
+	    //var src1 = 
+		var srcarr = new Array();
+		var wheight;
+	//	alert(wheight);
+		srcarr[0] = "game-easy.html";
+ srcarr[1] = "https://mediaillinois.qualtrics.com/SE/?SID=SV_ewI7RG7RtNMOBGR";
+ srcarr[2]= "game-intermediate.html";
+ srcarr[3] = "https://mediaillinois.qualtrics.com/SE/?SID=SV_d4KwhK4NgDOTBqt";
+ srcarr[4]= "game-hard.html";
+ srcarr[5]= "end.html";
  $(document).ready(function(){
 
-/*
+	var c = document.getElementById("container");
+//  c.src = srcarr[src_ct];
+ wheight = $(document).height()-$('#continue').height()*3;
+alert(wheight);
+  c.height = wheight;
+
+ 
+ /*
  var url = 'https://mediaillinois.qualtrics.com/SE/?SID=SV_ewI7RG7RtNMOBGR';
      $.get(url, function(response) {
 
@@ -34,24 +53,40 @@
 	//testing();
 	//$('<script>', {src: '/main.js'}).appendTo('head');
 
-                $('#test').load('Game%20Survey.html', function() {    
+            //    $('#test').load('Game%20Survey.html', function() {    
 	//onloadHelper();
+	//$.get('http://www.google.com/', function(data){
 	
-   });
-
+		//alert(data);
+		//$('#test').html(data.responseText);
+	
+	
+//	});
 });
 
 
 
 function Miski()
 {
+
   
-  $('#test').load('game-hard.html', function(){
+  if(src_ct>5){
+	$('#continue').hide();
+	return;
+	
+	}
+  var c = document.getElementById("container");
+  c.src = srcarr[src_ct];
+  c.height = wheight;
+ // $('#container').src = "src" + src_ct;
+ // $('#container').reload();
 
-	onloadHelper();
-
-  });
-
+  src_ct++;
+  if(src_ct>5){
+	$('#continue').hide();
+	//return;
+	
+	}
 }
 
 </script>
@@ -59,11 +94,11 @@ function Miski()
 </head>
 <body>
 
-<div id="test"></div>
+<iframe id="container" width="100%"   scrolling="auto" frameborder="0" seamless="seamless" src="intro.html"></iframe>
 
 
 
-<input type="button" value = "click me to switch" onClick="Miski();">   </input>
+<input type="button" id="continue" value = "Continue" onClick="Miski();">   </input>
 
 
 </body>
