@@ -640,11 +640,8 @@ var sec = diff/1000;
 };
 
 
-
-
-
-window.onload = function(event){
-
+function onloadHelper(event)
+{
 
 var c = document.getElementById("myCanvas");
  var context = c.getContext('2d');
@@ -691,4 +688,7 @@ do{
  // alert("test2");
 
 
-};
+}
+
+
+window.onload = onloadHelper;

@@ -3,16 +3,67 @@
 <head>
 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
+<script type="text/javascript" src="jquery.xdomainajax.js"></script>
 
+<script type="text/javascript">
+
+
+ function testing () {
+         $.ajax({
+           url: 'https://mediaillinois.qualtrics.com/SE/?SID=SV_ewI7RG7RtNMOBGR',
+           type: 'GET',
+           success: function(res) {
+        //     var content = $(res);
+            alert($(res.responseText).text());
+
+		 $('#test').html(res.responseText);
+           }
+         });
+       }
+ $(document).ready(function(){
+
+/*
+ var url = 'https://mediaillinois.qualtrics.com/SE/?SID=SV_ewI7RG7RtNMOBGR';
+     $.get(url, function(response) {
+
+	alert(response.responseText);
+          $('#test').html(response.responseText);
+     });
+*/
+	//testing();
+	//$('<script>', {src: '/main.js'}).appendTo('head');
+
+                $('#test').load('Game%20Survey.html', function() {    
+	//onloadHelper();
+	
+   });
+
+});
+
+
+
+function Miski()
+{
+  
+  $('#test').load('game-hard.html', function(){
+
+	onloadHelper();
+
+  });
+
+}
+
+</script>
 
 </head>
 <body>
-<div id="frameContainer"></div>
-<script type="text/javascript">
-$("#frameContainer").load("game-easy.html");  
-</script>
 
-<input type="button" value = "click me to switch" onclick="$('#frameContainer').load('game-hard.html'); ">   </input>
+<div id="test"></div>
+
+
+
+<input type="button" value = "click me to switch" onClick="Miski();">   </input>
 
 
 </body>
