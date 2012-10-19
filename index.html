@@ -27,12 +27,14 @@
 		var srcarr = new Array();
 		var wheight;
 	//	alert(wheight);
-		srcarr[0] = "game-easy.html";
- srcarr[1] = "https://mediaillinois.qualtrics.com/SE/?SID=SV_ewI7RG7RtNMOBGR";
- srcarr[2]= "game-intermediate.html";
- srcarr[3] = "https://mediaillinois.qualtrics.com/SE/?SID=SV_d4KwhK4NgDOTBqt";
- srcarr[4]= "game-hard.html";
- srcarr[5]= "end.html";
+	 srcarr[0] = "intro-easy.html"
+		srcarr[1] = "game-easy.html";
+ srcarr[2] = "https://mediaillinois.qualtrics.com/SE/?SID=SV_ewI7RG7RtNMOBGR";
+
+ srcarr[3]= "game-intermediate.html";
+ srcarr[4] = "https://mediaillinois.qualtrics.com/SE/?SID=SV_d4KwhK4NgDOTBqt";
+ srcarr[5]= "game-hard.html";
+ srcarr[6]= "end.html";
  $(document).ready(function(){
 
 	var c = document.getElementById("container");
@@ -69,8 +71,23 @@
 function Miski()
 {
 
+
+	//alert(count);
+	
+	//alert(count);
+	/*
+  if(checkCountComplete(count)==false)
+  {
+	$('#continue').hide();
+	
   
-  if(src_ct>5){
+  }
+  else {
+  
+  $('#continue').display();
+  }
+  */
+  if(src_ct>6){
 	$('#continue').hide();
 	return;
 	
@@ -82,7 +99,7 @@ function Miski()
  // $('#container').reload();
 
   src_ct++;
-  if(src_ct>5){
+  if(src_ct>6){
 	$('#continue').hide();
 	//return;
 	

@@ -1,13 +1,13 @@
 var pairs = 0;
 var picasso;
-var mousePos;
+var mousePos="undefined";
 var GridCordPrev = "undefined";
 var GridCordNext = "undefined";
 var imagedata;
 var background;
 var gridD = 40;
 var dimension = 9; //9x9
-var TimeLimit = 15000; //in ms
+var TimeLimit = 3000; //in ms
 var intervalHandler;
 var countDownStart; // the time between Jan 1st, 1970 and the start
 var ImagePool;
@@ -18,7 +18,8 @@ var args=1;
 var score = 0;
 function whichGrid()
 {
-
+  if(mousePos=="undefined")
+	return "undefined";
 
     var my_x = mousePos.x;
 	var my_y = mousePos.y;
@@ -294,6 +295,8 @@ function makeSelection()
 {
 
   GridCordNext = whichGrid();
+  if(GridCordNext=="undefined")
+	return;
   if(picasso[GridCordNext.y][GridCordNext.x]== -1)
   {
        return;
@@ -369,7 +372,7 @@ function enlightPicasso()
 	
 	var i = 0;
 	var j = 0;
-	
+	  var tank = 0;
 	 
     for(i = 0;i<9;i++)
    {
@@ -380,11 +383,36 @@ function enlightPicasso()
 	//var img = new Image();
 	//img.src = "shape"+randomGenerator()+".jpg";  //alert(img);
 	//ctx.drawImage(img,j*30,i*30, 30, 30);
-     picasso[i][j] = randomGenerator();
+	
 	 
+     picasso[i][j] = randomGenerator();
+		
 	 
 	 }
    }
+ if(hardness==0)
+   while(tank<30)
+   {
+   
+   
+	var i = Math.floor(Math.random()*dimension);
+    var j = Math.floor(Math.random()*dimension);
+	
+	//alert(i+","+j+")"+tank);
+   if(picasso[i][j]==-1)
+   {
+       
+   }
+   
+    else{
+	   picasso[i][j] = -1;
+	   tank++;
+	}
+   
+   
+   }
+ 
+   
 }
 
 
@@ -403,11 +431,17 @@ function drawPicasso(){
     for(j=0;j<9;j++){
 	
 	ImagePool[i][j] = new Image();
+	if(picasso[i][j]==-1){
+	ImagePool[i][j].src = "empty.jpg";  //alert(img);
+	ImagePool[i][j].i = i;
+	ImagePool[i][j].j = j;
+	}
 	
+	else{
 	ImagePool[i][j].src = "shape"+picasso[i][j]+".jpg";  //alert(img);
 	ImagePool[i][j].i = i;
 	ImagePool[i][j].j = j;
-	
+	}
     ImagePool[i][j].onload = function(){
         
       var c = document.getElementById("myCanvas");
@@ -600,11 +634,20 @@ function countPairs()
 
 function randomGenerator()
 {
-    var randomnumber=Math.floor(Math.random()*3);
+
+	var module = 3;
+	if(hardness == 0)
+	   module = 2;
+    var randomnumber=Math.floor(Math.random()*module);
 
     return randomnumber+1;
 }
+function startNow()
+{
 
+
+
+}
  function writeMessage(canvas, message) {
         var context = canvas.getContext('2d');
         context.clearRect(0, 0, canvas.width, canvas.height);
@@ -613,7 +656,47 @@ function randomGenerator()
         context.fillText(message, 10, 25);
       }
 	  
+function StartCountDownThreadForCoolDown() {
+   // var c = document.getElementById("myCanvas");
+	//var context = c.getContext("2d");
+	
+		var count = calculateCountDownMSec();
+	if(checkCountComplete(count)==true)
+	{
+	
+		
+		//c.value = "Game will start in"+ count +"seconds...";
+	   //alert("check");
+	   window.clearInterval(intervalHandler);
+	   $('#status_count').hide();
+	   //$('#continue').hide();
+	    setCountDown();
+		TimeLimit = 15000;
+		intervalHandler = setInterval(function(){StartCountDownThread();}, 0); 
+	  // grayShadow();
+	   //disableControl();
+	   var c = document.getElementById("myCanvas");
+	var context = c.getContext('2d');
 
+	c.addEventListener('mousemove', function(evt) {
+           mousePos = getMousePos(c, evt);
+          //var message = 'Mouse position: ' + mousePos.x + ',' + mousePos.y;
+         // writeMessage(c, message);
+        }, false);
+
+	c.setAttribute('onClick', 'makeSelection();');
+		    return;
+	}
+	//var c = document.getElementById("status_count");
+
+	var diff = TimeLimit - count;
+var sec = Math.round(diff/1000);
+	$('#status_count').text("Game will start in "+sec.toString()+" seconds...");
+	
+	
+	
+//	alert("ready");
+}
 function StartCountDownThread() {
    // var c = document.getElementById("myCanvas");
 	//var context = c.getContext("2d");
@@ -637,20 +720,13 @@ var sec = diff/1000;
 	
 	
 //	alert("ready");
-};
+}
 
 
 function onloadHelper(event)
 {
 
-var c = document.getElementById("myCanvas");
- var context = c.getContext('2d');
 
-c.addEventListener('mousemove', function(evt) {
-           mousePos = getMousePos(c, evt);
-          //var message = 'Mouse position: ' + mousePos.x + ',' + mousePos.y;
-         // writeMessage(c, message);
-        }, false);
      
    //insert function to draw the matrix
    // NxN, where N = 9
@@ -662,11 +738,11 @@ c.addEventListener('mousemove', function(evt) {
   
   if(hardness==1)
 	args = 2;
-do{
+//do{
   enlightPicasso();
-  }
-  while((pairs=countGaps(args))<threshold);
-   
+ // }
+ // while((pairs=countGaps(args))<threshold);
+   pairs=countGaps(args);
    
  //  alert("test");
   // drawRandom();
@@ -679,10 +755,14 @@ do{
    display.value = pairs;
    var p = document.getElementById("discoveryPercent");
    p.value = Math.round((score/(score+pairs))*100)+"%";
+   
+   
+   
    setCountDown();
+   intervalHandler = setInterval(function(){StartCountDownThreadForCoolDown();}, 0);
+  
    
-   
-   intervalHandler = setInterval(StartCountDownThread, 0); // this creates a new "thread," but doesn't make much sense to the untrained eye.
+   // this creates a new "thread," but doesn't make much sense to the untrained eye.
 //alert("123");
 //background =  Color(imagedata[0], imagedata[1], imagedata[2], imagedata[3]);
  // alert("test2");
