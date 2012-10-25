@@ -368,17 +368,17 @@ function getMousePos(canvas, evt) {
 
 function enlightPicasso()
 {
-    picasso = new Array(9);
+    picasso = new Array(dimension);
 	
 	var i = 0;
 	var j = 0;
 	  var tank = 0;
 	 
-    for(i = 0;i<9;i++)
+    for(i = 0;i<dimension;i++)
    {
    
-    picasso[i] = new Array(9);
-    for(j=0;j<9;j++){
+    picasso[i] = new Array(dimension);
+    for(j=0;j<dimension;j++){
 	
 	//var img = new Image();
 	//img.src = "shape"+randomGenerator()+".jpg";  //alert(img);
@@ -422,13 +422,13 @@ function drawPicasso(){
    //alert(c);
       var ctx=c.getContext("2d");
   //alert(ctx);
-  ImagePool = new Array(9);
+  ImagePool = new Array(dimension);
   
-  for(i = 0;i<9;i++)
+  for(i = 0;i<dimension;i++)
    {
-    ImagePool[i] = new Array(9);
+    ImagePool[i] = new Array(dimension);
     
-    for(j=0;j<9;j++){
+    for(j=0;j<dimension;j++){
 	
 	ImagePool[i][j] = new Image();
 	if(picasso[i][j]==-1){
