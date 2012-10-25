@@ -442,14 +442,14 @@ function onloadHelper(event)
 		//old disappear flip
 		
 		//objectGrid.shadowHerDetail(subjectGrid.x, subjectGrid.y, dx, dy);
-		emptyShadower.shadowHerDetail(subjectGrid.x, subjectGrid.y, dx, dy);
+		emptyShadower.shadowHerDetail(subjectGrid.x, 0, subjectGrid.y, dx, dy);
 	}
 	else{      
 	dx+=offset*2;
 	if(dx>gridD)
 		dx = gridD;
 		//new appearance flip  
-	objectGrid.shadowHerDetail(subjectGrid.x, subjectGrid.y, dx, dy);
+	objectGrid.shadowHerDetail(subjectGrid.x, 0, subjectGrid.y, dx, dy);
 	}
 
 
