@@ -9,6 +9,7 @@ var shadowMatrix;
 //var hardness = 0;
 var symbolNum = 2;
 var emptyShadower;
+var blankShadower;
 if(hardness == 1){
  symbolNum = 8;
 // eachGroup = dimension*dimension/symbolNum;
@@ -41,19 +42,22 @@ function randomGenerator()
     return randomnumber+1;
 }
 
-function flip(duration, objGrid, subGrid)
+function flip(duration, objGrid, subGrid, flag)
 {
-
+//flag = 1, then flip to a number
+//flag = 0, the flip back to NULL
 var dt = new Date();
 var time = dt.getTime();
 
-animate(time, time, time+duration, objGrid, subGrid, gridD, gridD);
+animate(time, time, time+duration, objGrid, subGrid, gridD, gridD, flag);
 
 }
 
-function flipBack(xcord, ycord)
+function flipBack(obj)
 {
-   emptyShadower.shadowHer(xcord, ycord);
+
+	flip(500, "null",obj,0);
+  // emptyShadower.shadowHer(xcord, ycord);
 
 
 }
@@ -100,6 +104,18 @@ emptyShadower.shadowHerDetail = function(x, y, dx, dy)
 		context.drawImage(this, x*gridD, y*gridD, dx, dy);
 	};
 
+blankShadower = new Image();
+blankShadower.src = "blank.jpg";
+blankShadower.shadowHer = function (x,y)
+{
+	var c = document.getElementById("myCanvas");
+	var context = c.getContext('2d');
+	context.drawImage(this, x*gridD, y*gridD, gridD, gridD);
+
+
+}
+	
+	
 }
 
 function enlightPicasso()
@@ -239,10 +255,16 @@ function makeSelection()
 		console.log('Clear State...');
 		if(picasso[greeting.y][greeting.x] != -1){
 		  GridLast = greeting;
-		flip(300, shadowMatrix[picasso[greeting.y][greeting.x]], greeting);
-		 shadowMatrix[picasso[greeting.y][greeting.x]].shadowHer(greeting.x, greeting.y);
+		
+	
+		
+		  flip(500, shadowMatrix[picasso[greeting.y][greeting.x]], greeting, 1);
+		 //emptyShadower.shadowHer(greeting.x, greeting.y);
+	
+		
 		}
 	}
+	
 	else{
 	
 		console.log('Dirty State...');
@@ -262,10 +284,12 @@ function makeSelection()
 			{
 			
 			console.log('Dirty State: two same symbols...');
-				
-			 shadowMatrix[picasso[greeting.y][greeting.x]].shadowHer(greeting.x, greeting.y);
+				flip(500, shadowMatrix[picasso[greeting.y][greeting.x]], greeting, 1);
+			// shadowMatrix[picasso[greeting.y][greeting.x]].shadowHer(greeting.x, greeting.y);
+			
 			 picasso[greeting.y][greeting.x]= -1;
 			 picasso[GridLast.y][GridLast.x] = -1;
+			 
 			 GridLast = "undefined";
 			  
 			 
@@ -275,7 +299,7 @@ function makeSelection()
 		//	   alert(GridLast);
 			    console.log('Dirty State: two diff symbols, clean it...');
 			     halted = "true";
-			    shadowMatrix[picasso[greeting.y][greeting.x]].shadowHer(greeting.x, greeting.y);
+			   flip(500, shadowMatrix[picasso[greeting.y][greeting.x]], greeting, 1);
 			
 			//	alert(23);
 				
@@ -289,10 +313,10 @@ function makeSelection()
 			
 			  
 			  var t = window.setTimeout(function(){
-			  flipBack(greeting.x, greeting.y);
-			  flipBack(GridLast.x, GridLast.y);  
+			  flipBack(greeting);
+			  flipBack(GridLast);  
 			  GridLast = "undefined"; halted = "false"; },
-			  300);
+			  500);
 			  
 			 
 			  
@@ -420,12 +444,24 @@ function onloadHelper(event)
 
 }
 
-   function animate(lastTime, startTime, endTime, objectGrid, subjectGrid, dx, dy) {
-
+   function animate(lastTime, startTime, endTime, objectGrid, subjectGrid, dx, dy, flag) {
+	halted = "true";
 	 var date = new Date();
         var time = date.getTime();
        // var timeDiff = time - lastTime;
 	if(time>endTime){
+	
+		if(flag==1)
+		{
+		console.log(picasso[subjectGrid.y][subjectGrid.x]);
+		//console.log("x: "+subjectGrid.x);
+		shadowMatrix[picasso[subjectGrid.y][subjectGrid.x]].shadowHer(subjectGrid.x, subjectGrid.y);
+		}
+		else{
+		
+		emptyShadower.shadowHer(subjectGrid.x, subjectGrid.y);
+		}
+		halted = "false";
           return;
 	}
 	lastTime = time;
@@ -440,21 +476,38 @@ function onloadHelper(event)
 			dx = 0;
 		
 		//old disappear flip
-		
+		blankShadower.shadowHer(subjectGrid.x, subjectGrid.y);
 		//objectGrid.shadowHerDetail(subjectGrid.x, subjectGrid.y, dx, dy);
+		
+		if(flag==1){
 		emptyShadower.shadowHerDetail(subjectGrid.x, subjectGrid.y, dx, dy);
+		}
+		else{
+		shadowMatrix[picasso[subjectGrid.y][subjectGrid.x]].shadowHerDetail(subjectGrid.x, subjectGrid.y, dx, dy);
+		
+		}
 	}
 	else{      
 	dx+=offset*2;
 	if(dx>gridD)
 		dx = gridD;
 		//new appearance flip  
+		
+	if(flag==1){	
 	objectGrid.shadowHerDetail(subjectGrid.x, subjectGrid.y, dx, dy);
+	}
+	
+	else {
+	   emptyShadower.shadowHerDetail(subjectGrid.x, subjectGrid.y, dx, dy);
+	
+	}
+	
+	
 	}
 
 
   	requestAnimFrame(function() {
-          animate(lastTime, startTime, endTime, objectGrid, subjectGrid, dx, dy);
+          animate(lastTime, startTime, endTime, objectGrid, subjectGrid, dx, dy, flag);
         });
    
       }
