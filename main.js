@@ -321,7 +321,7 @@ function makeSelection()
    
    MarkGrid(GridCordNext.x, GridCordNext.y);
    var checkfunction = AdjacentOrNot;
-   if(hardness == 1)
+   if(hardness == 2)
     checkfunction = IfGappedByOne;
    
    if(checkfunction(GridCordPrev, GridCordNext) == true && picasso[GridCordPrev.y][GridCordPrev.x] == picasso[GridCordNext.y][GridCordNext.x])
@@ -736,7 +736,7 @@ function onloadHelper(event)
 //	countFunction = countGaps;
 	
   
-  if(hardness==1)
+  if(hardness==2)
 	args = 2;
 //do{
   enlightPicasso();

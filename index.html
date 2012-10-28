@@ -27,14 +27,28 @@
 		var srcarr = new Array();
 		var wheight;
 	//	alert(wheight);
-	 srcarr[0] = "intro-easy.html"
-		srcarr[1] = "game-easy.html";
- srcarr[2] = "https://mediaillinois.qualtrics.com/SE/?SID=SV_ewI7RG7RtNMOBGR";
+	 srcarr[0] = "intro-easy.html" //easy perceptual intro
+		srcarr[1] = "game-easy.html"; //easy perceptual
+ srcarr[2] = "https://mediaillinois.qualtrics.com/SE/?SID=SV_6nkVVyvZ765jqXr"; //survey
 
- srcarr[3]= "game-intermediate.html";
- srcarr[4] = "https://mediaillinois.qualtrics.com/SE/?SID=SV_d4KwhK4NgDOTBqt";
- srcarr[5]= "game-hard.html";
- srcarr[6]= "end.html";
+
+ 
+ srcarr[3]= "cognitive-intro.html"; //hard cognitive intro
+ srcarr[4] = "cognitive-hard.html"; //hard cognitive game
+ srcarr[5] = "https://mediaillinois.qualtrics.com/SE/?SID=SV_dpAJArXBEBUy1Qp"; //cognitive survey
+ 
+ srcarr[6] =  "intro-easy.html"; //hard game intro
+ srcarr[7]= "game-intermediate.html"; //
+ srcarr[8] = "https://mediaillinois.qualtrics.com/SE/?SID=SV_7OPln38sxpGUIyp"; //medium game survey
+ srcarr[9] =  "cognitive-intro.html";
+ srcarr[10] = "cognitive-easy.html"; //cognitive easy
+ srcarr[11] = "https://mediaillinois.qualtrics.com/SE/?SID=SV_8dIeArqj8h7E1Lf"; //survey
+ srcarr[12] = "intro-hard.html";
+ srcarr[13] = "game-hard.html";
+ srcarr[14] = "https://mediaillinois.qualtrics.com/SE/?SID=SV_cx0TvsYGPTPn9PL"; //survey
+ srcarr[15]= "end.html";
+ 
+ 
  $(document).ready(function(){
 
 	var c = document.getElementById("container");
@@ -87,7 +101,7 @@ function Miski()
   $('#continue').display();
   }
   */
-  if(src_ct>6){
+  if(src_ct>15){
 	$('#continue').hide();
 	return;
 	
@@ -99,7 +113,7 @@ function Miski()
  // $('#container').reload();
 
   src_ct++;
-  if(src_ct>6){
+  if(src_ct>15){
 	$('#continue').hide();
 	//return;
 	

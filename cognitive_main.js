@@ -10,6 +10,10 @@ var shadowMatrix;
 var symbolNum = 2;
 var emptyShadower;
 var blankShadower;
+var TimeLimit = 3000; //in ms
+var intervalHandler;
+var countDownStart; // the time between Jan 1st, 1970 and the start
+var score = 0;
 if(hardness == 1){
  symbolNum = 8;
 // eachGroup = dimension*dimension/symbolNum;
@@ -30,6 +34,128 @@ function getMousePos(canvas, evt) {
     };
   }
 
+function setCountDown()
+{
+    var d = new Date();
+    var n = d.getTime();
+   countDownStart = n;
+
+
+}
+function checkCountComplete(countDownMSec)
+{
+    if(TimeLimit - countDownMSec <=0)
+	   return true;
+	   
+	return false;
+
+
+}
+function StartCountDownThread() {
+   // var c = document.getElementById("myCanvas");
+	//var context = c.getContext("2d");
+	
+		var count = calculateCountDownMSec();
+	if(checkCountComplete(count)==true)
+	{
+	   //alert("check");
+	   window.clearInterval(intervalHandler);
+	   grayShadow();
+	   disableControl();
+	    return;
+	
+	}
+	var inputText = document.getElementById("Clock");
+
+	var diff = TimeLimit - count;
+var sec = diff/1000;
+	inputText.value = sec.toString();
+	
+	
+	
+//	alert("ready");
+}
+function StartCountDownThreadForCoolDown() {
+   // var c = document.getElementById("myCanvas");
+	//var context = c.getContext("2d");
+	
+		var count = calculateCountDownMSec();
+	if(checkCountComplete(count)==true)
+	{
+	
+		
+		//c.value = "Game will start in"+ count +"seconds...";
+	   //alert("check");
+	   window.clearInterval(intervalHandler);
+	   $('#status_count').hide();
+	   //$('#continue').hide();
+	    setCountDown();
+		TimeLimit = 15000;
+		intervalHandler = setInterval(function(){StartCountDownThread();}, 0); 
+	  // grayShadow();
+	   //disableControl();
+	   var c = document.getElementById("myCanvas");
+	var context = c.getContext('2d');
+
+
+
+	c.setAttribute('onClick', 'makeSelection();');
+		    return;
+	}
+	//var c = document.getElementById("status_count");
+
+	var diff = TimeLimit - count;
+var sec = Math.round(diff/1000);
+	$('#status_count').text("Game will start in "+sec.toString()+" seconds...");
+	
+	
+	
+//	alert("ready");
+}
+function grayShadow()
+{
+
+//http://en.wikipedia.org/wiki/Grayscale
+   var c = document.getElementById("myCanvas");
+   var i;
+  
+   var ctx = c.getContext("2d");
+
+	
+	//alert("test");
+	  var imgd = ctx.getImageData(0, 0, dimension*gridD, dimension*gridD);
+    
+	 
+	 
+	 
+	var len = imgd.data.length;
+    // alert(len);
+for(i = 0;i<len;i+=4){
+
+
+   	 var R =  imgd.data[i];
+      var G =  imgd.data[i+1];
+      var B =  imgd.data[i+2];
+      var luma = 0.2126*R + 0.7152*G+0.0722*B;
+
+	  	 imgd.data[i] = luma;
+       imgd.data[i+1] = luma;
+      imgd.data[i+2] = luma;
+
+   
+   }
+     ctx.putImageData(imgd,0,0);
+
+}
+function calculateCountDownMSec()
+{
+
+ var d = new Date();
+    var n = d.getTime(); //the time right now
+	
+	return n-countDownStart;
+
+}
 function randomGenerator()
 {
 
@@ -210,7 +336,22 @@ function whichGrid()
 
 
 }
+function updateScoreTest()
+{
+   
 
+
+   var c = document.getElementById("score");
+   var d = document.getElementById("discoveryPercent");
+  // var e = document.getElementById("totalPairs");
+ //  pairs = countGaps(args);
+  // e.value = pairs;
+   c.value = score;
+   d.value = Math.round((score/((dimension*dimension)/2))*100)+"%";
+   
+
+
+}
 
 	function sleep(ms)
 	{
@@ -219,7 +360,7 @@ function whichGrid()
 		while (new Date().getTime() < dt.getTime());
 	}
 	
-	
+
 	function disableControl()
 {
 
@@ -229,7 +370,7 @@ function whichGrid()
 	
   //alert("??");
 }
- 
+ /*
  	function enableControl()
 {
 
@@ -239,6 +380,7 @@ function whichGrid()
 	
   //alert("??");
 }
+*/
 
 
 
@@ -250,7 +392,8 @@ function makeSelection()
       return;
 
     var greeting = whichGrid();
-   
+    if(greeting=="undefined")
+		return;
 	if(GridLast=="undefined"){
 		//console.log('Clear State...');
 		if(picasso[greeting.y][greeting.x] != -1){
@@ -286,7 +429,9 @@ function makeSelection()
 			//console.log('Dirty State: two same symbols...');
 			flip(500, shadowMatrix[picasso[greeting.y][greeting.x]], greeting, 1, 1);
 			// shadowMatrix[picasso[greeting.y][greeting.x]].shadowHer(greeting.x, greeting.y);
-			
+			 score++;
+	  
+			updateScoreTest();
 			
 			
 			
@@ -428,14 +573,18 @@ function onloadHelper(event)
      enlightPicasso();
 	 shadowPreload();
 	 drawPicasso();
+	 
+	  setCountDown();
+      intervalHandler = setInterval(function(){StartCountDownThreadForCoolDown();}, 0);
+	 
 	c.addEventListener('mousemove', function(evt) {
            mousePos = getMousePos(c, evt);
           //var message = 'Mouse position: ' + mousePos.x + ',' + mousePos.y;
          // writeMessage(c, message);
         }, false);
 
-		c.setAttribute('onClick', 'makeSelection();');
-		    return;
+	/*	c.setAttribute('onClick', 'makeSelection();');
+		    return;*/
 		
 
 
