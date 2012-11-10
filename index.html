@@ -8,6 +8,18 @@
 
 <script type="text/javascript">
 
+
+function triplecheck()
+{
+    var hi= confirm("Have you completed and submit the survey?");
+    if (hi== true){
+	
+	Miski();
+        //alert("hi");
+    }else{
+       // alert("Meany!!!");
+    }
+}
 /*
  function testing () {
          $.ajax({
@@ -21,8 +33,9 @@
            }
          });
        }*/
-	   
+	   var TimeLimit  = 8000;
 	   var src_ct = 0;
+	   var countDownStart; // the time between Jan 1st, 1970 and the start
 	    //var src1 = 
 		var srcarr = new Array();
 		var wheight;
@@ -47,6 +60,87 @@
  srcarr[13] = "game-hard.html";
  srcarr[14] = "https://mediaillinois.qualtrics.com/SE/?SID=SV_cx0TvsYGPTPn9PL"; //survey
  srcarr[15]= "end.html";
+ 
+ 
+function checkCountComplete(countDownMSec)
+{
+    if(TimeLimit - countDownMSec <=0)
+	   return true;
+	   
+	return false;
+
+
+}
+ function calculateCountDownMSec()
+{
+
+ var d = new Date();
+    var n = d.getTime(); //the time right now
+	
+	return n-countDownStart;
+
+}
+
+ function alistar()
+ {
+ // if(src_ct == 3||src_ct==6||src_ct==9||src_ct==12||src_ct==15)
+ // {
+ 
+ if(src_ct == 3||src_ct==6||src_ct==9||src_ct==12||src_ct==15)
+	{	
+		TimeLimit = 8000;
+	}
+	else{
+		TimeLimit = 15000+3000;
+		if(src_ct==2)
+			TimeLimit = 10000+3000;
+	
+	
+	}
+
+ if(src_ct == 2||src_ct==3||src_ct==5||src_ct==6||src_ct==8||src_ct==9||src_ct==11||src_ct==12||src_ct==14||src_ct==15){
+ 
+ 
+		$('#continue').hide();
+		$('#continue_label').text("");
+		
+		
+	}
+	else if(src_ct==4||src_ct==7||src_ct==10||src_ct==13||src_ct==16)
+	{
+		$('#continue_label').text("");
+	
+	}
+	
+	
+	//$('#continue_label;).text("");
+		//StartCountDownThread();
+	
+		 
+		if(src_ct == 2||src_ct==3||src_ct==5||src_ct==6||src_ct==8||src_ct==9||src_ct==11||src_ct==12||src_ct==14||src_ct==15){
+		 setCountDown();
+	intervalHandler = setInterval(function(){StartCountDownThread();}, 0); 
+  }
+ // }
+  
+  /*else{
+  
+  
+  
+  if(src_ct<=15){
+	
+	
+	
+
+	 $('#continue').show();
+	}
+     
+	  $('#continue_label').text("");
+  
+  }
+ */
+ }
+
  
  
  $(document).ready(function(){
@@ -81,7 +175,45 @@
 });
 
 
+function StartCountDownThread() {
+   // var c = document.getElementById("myCanvas");
+	//var context = c.getContext("2d");
+	//var inputText = document.getElementById("continue_label");
+		var count = calculateCountDownMSec();
+	if(checkCountComplete(count)==true)
+	{
+	   //alert("check");
+	   window.clearInterval(intervalHandler);
+	 // grayShadow();
+	  // disableControl();
+	  $('#continue').show();
+	  if(src_ct == 3||src_ct==6||src_ct==9||src_ct==12||src_ct==15)
+	  $('#continue_label').text("Please continue after you submit the survey.");
+	    return;
+	
+	}
+	
+		
 
+	var diff = TimeLimit - count;
+var sec = Math.round(diff/1000);
+if(src_ct == 3||src_ct==6||src_ct==9||src_ct==12||src_ct==15)
+	$('#continue_label').text(  "Please comlete the survey before clicking Continue button. The Continue button will appear in "+ sec.toString()+ " seconds.");
+	
+	
+	
+//	alert("ready");
+}
+
+
+function setCountDown()
+{
+    var d = new Date();
+    var n = d.getTime();
+   countDownStart = n;
+
+
+}
 function Miski()
 {
 
@@ -101,6 +233,8 @@ function Miski()
   $('#continue').display();
   }
   */
+ 
+  
   if(src_ct>15){
 	$('#continue').hide();
 	return;
@@ -125,12 +259,12 @@ function Miski()
 </head>
 <body>
 
-<iframe id="container" width="100%"   scrolling="auto" frameborder="0" seamless="seamless" src="intro.html"></iframe>
+<iframe id="container" onload = "alistar();"width="100%"   scrolling="auto" frameborder="0" seamless="seamless" src="intro.html"></iframe>
 
 
 
-<input type="button" id="continue" value = "Continue" onClick="Miski();">   </input>
-
+<input type="button" id="continue" value = "Continue" onClick="if(src_ct == 3||src_ct==6||src_ct==9||src_ct==12||src_ct==15)triplecheck();else Miski();">   </input>
+<b id='continue_label'></b>
 
 </body>
 

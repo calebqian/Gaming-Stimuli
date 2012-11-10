@@ -566,7 +566,7 @@ function drawPicasso(){
 
 function onloadHelper(event)
 {
-
+ $('.mywidgets').hide();
    var c = document.getElementById("myCanvas");
 	var context = c.getContext('2d');
 

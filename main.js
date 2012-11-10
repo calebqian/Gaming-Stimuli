@@ -776,6 +776,7 @@ function onloadHelper(event)
   //if(hardness==1)
 //	countFunction = countGaps;
 	
+  $('.mywidgets').hide();
   
   if(hardness==2)
 	args = 2;
