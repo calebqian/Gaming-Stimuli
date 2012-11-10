@@ -182,7 +182,7 @@ animate(time, time, time+duration, objGrid, subGrid, gridD, gridD, flag, callbac
 function flipBack(obj)
 {
 
-	flip(500, "null",obj, 0, 0);
+	flip(400, "null",obj, 0, 0);
   // emptyShadower.shadowHer(xcord, ycord);
 
 
@@ -401,7 +401,7 @@ function makeSelection()
 		
 	
 		
-		  flip(500, shadowMatrix[picasso[greeting.y][greeting.x]], greeting, 1,0);
+		  flip(400, shadowMatrix[picasso[greeting.y][greeting.x]], greeting, 1,0);
 		 //emptyShadower.shadowHer(greeting.x, greeting.y);
 	
 		
@@ -427,7 +427,7 @@ function makeSelection()
 			{
 			
 			//console.log('Dirty State: two same symbols...');
-			flip(500, shadowMatrix[picasso[greeting.y][greeting.x]], greeting, 1, 1);
+			flip(400, shadowMatrix[picasso[greeting.y][greeting.x]], greeting, 1, 1);
 			// shadowMatrix[picasso[greeting.y][greeting.x]].shadowHer(greeting.x, greeting.y);
 			 score++;
 	  
@@ -444,7 +444,7 @@ function makeSelection()
 		//	   alert(GridLast);
 			//    console.log('Dirty State: two diff symbols, clean it...');
 			     halted = "true";
-			   flip(500, shadowMatrix[picasso[greeting.y][greeting.x]], greeting, 1, 2);
+			   flip(400, shadowMatrix[picasso[greeting.y][greeting.x]], greeting, 1, 2);
 			
 			//	alert(23);
 				

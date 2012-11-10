@@ -355,7 +355,25 @@ function makeSelection()
 
 
 }
+function isUnique(cord_i, cord_j)
+{
 
+   if(cord_i-1>=0&&picasso[cord_i][cord_j]==picasso[cord_i-1][cord_j])
+     return false;
+	 
+	if(cord_i+1<dimension&&picasso[cord_i][cord_j]==picasso[cord_i+1][cord_j])
+	 return false;
+	
+	if(cord_j+1<dimension&&picasso[cord_i][cord_j] == picasso[cord_i][cord_j+1])
+	 return false;
+	 
+   if(cord_j-1>=0&&picasso[cord_i][cord_j] == picasso[cord_i][cord_j-1])
+     return false;
+
+
+    return true;	 
+	 
+}
 function getMousePos(canvas, evt) {
     var rect = canvas.getBoundingClientRect();
     return {
@@ -390,7 +408,7 @@ function enlightPicasso()
 	 
 	 }
    }
- if(hardness==0)
+ if(hardness==0){
    while(tank<30)
    {
    
@@ -412,7 +430,25 @@ function enlightPicasso()
    
    }
  
+   for(i=0;i<dimension;i++)
+   {
+	for(j = 0;j<dimension; j++)
+	{
+	
+	   if(picasso[i][j]!=-1&&isUnique(i,j))
+		{
+			picasso[i][j] = -1;
+		
+		
+		}
+	
+	}
    
+   
+   }
+ 
+ 
+ }
 }
 
 
@@ -671,7 +707,12 @@ function StartCountDownThreadForCoolDown() {
 	   $('#status_count').hide();
 	   //$('#continue').hide();
 	    setCountDown();
+		
 		TimeLimit = 15000;
+		
+		if(hardness==0)
+		  TimeLimit = 10000;
+		 
 		intervalHandler = setInterval(function(){StartCountDownThread();}, 0); 
 	  // grayShadow();
 	   //disableControl();
@@ -756,8 +797,11 @@ function onloadHelper(event)
    var p = document.getElementById("discoveryPercent");
    p.value = Math.round((score/(score+pairs))*100)+"%";
    
-   
-   
+   if(hardness==0)
+   {
+   display = document.getElementById("Clock");
+   display.value = "10.000";
+   }
    setCountDown();
    intervalHandler = setInterval(function(){StartCountDownThreadForCoolDown();}, 0);
   
