@@ -59,7 +59,8 @@ function triplecheck()
  srcarr[12] = "intro-hard.html";
  srcarr[13] = "game-hard.html";
  srcarr[14] = "https://mediaillinois.qualtrics.com/SE/?SID=SV_cx0TvsYGPTPn9PL"; //survey
- srcarr[15]= "end.html";
+ srcarr[15] = "https://mediaillinois.qualtrics.com/SE/?SID=SV_bjYBtvFYLoA1AmF"; 
+ srcarr[16]= "end.html";
  
  
 function checkCountComplete(countDownMSec)
@@ -86,7 +87,7 @@ function checkCountComplete(countDownMSec)
  // if(src_ct == 3||src_ct==6||src_ct==9||src_ct==12||src_ct==15)
  // {
  
- if(src_ct == 3||src_ct==6||src_ct==9||src_ct==12||src_ct==15)
+ if(src_ct == 3||src_ct==6||src_ct==9||src_ct==12||src_ct==15||src_ct==16)
 	{	
 		TimeLimit = 8000;
 	}
@@ -98,7 +99,7 @@ function checkCountComplete(countDownMSec)
 	
 	}
 
- if(src_ct == 2||src_ct==3||src_ct==5||src_ct==6||src_ct==8||src_ct==9||src_ct==11||src_ct==12||src_ct==14||src_ct==15){
+ if(src_ct == 2||src_ct==3||src_ct==5||src_ct==6||src_ct==8||src_ct==9||src_ct==11||src_ct==12||src_ct==14||src_ct==15||src_ct==16){
  
  
 		$('#continue').hide();
@@ -106,7 +107,7 @@ function checkCountComplete(countDownMSec)
 		
 		
 	}
-	else if(src_ct==4||src_ct==7||src_ct==10||src_ct==13||src_ct==16)
+	else if(src_ct==4||src_ct==7||src_ct==10||src_ct==13||src_ct==16||src_ct==17)
 	{
 		$('#continue_label').text("");
 	
@@ -117,7 +118,7 @@ function checkCountComplete(countDownMSec)
 		//StartCountDownThread();
 	
 		 
-		if(src_ct == 2||src_ct==3||src_ct==5||src_ct==6||src_ct==8||src_ct==9||src_ct==11||src_ct==12||src_ct==14||src_ct==15){
+		if(src_ct == 2||src_ct==3||src_ct==5||src_ct==6||src_ct==8||src_ct==9||src_ct==11||src_ct==12||src_ct==14||src_ct==15||src_ct==16){
 		 setCountDown();
 	intervalHandler = setInterval(function(){StartCountDownThread();}, 0); 
   }
@@ -197,8 +198,8 @@ function StartCountDownThread() {
 
 	var diff = TimeLimit - count;
 var sec = Math.round(diff/1000);
-if(src_ct == 3||src_ct==6||src_ct==9||src_ct==12||src_ct==15)
-	$('#continue_label').text(  "Please comlete the survey before clicking Continue button. The Continue button will appear in "+ sec.toString()+ " seconds.");
+if(src_ct == 3||src_ct==6||src_ct==9||src_ct==12||src_ct==15||src_ct==16)
+	$('#continue_label').text(  "Please complete the survey before clicking Continue button. The Continue button will appear in "+ sec.toString()+ " seconds.");
 	
 	
 	
@@ -235,7 +236,7 @@ function Miski()
   */
  
   
-  if(src_ct>15){
+  if(src_ct>16){
 	$('#continue').hide();
 	return;
 	
@@ -247,7 +248,7 @@ function Miski()
  // $('#container').reload();
 
   src_ct++;
-  if(src_ct>15){
+  if(src_ct>16){
 	$('#continue').hide();
 	//return;
 	
