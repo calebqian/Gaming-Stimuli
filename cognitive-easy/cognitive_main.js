@@ -1,6 +1,7 @@
 var mousePos="undefined";
 //var GridCurrent = "undefined";
 var GridLast = "undefined";
+var validity = true;
 var startX = 328;
 var contEnabled = true;
 var uplock = true;
@@ -872,6 +873,8 @@ function onloadHelper(event)
 	  
 contMoveHandler =
 function(evt) {
+	if(validity == false)
+		return;
 			 var c = document.getElementById("myCanvas");
            mousePos = getMousePos(c, evt);
 		   if(WithInContinueArea()==true){
@@ -893,6 +896,8 @@ function(evt) {
         }
 
 contDownHandler = function(evt) {
+	if(validity == false)
+		return;
        //    mousePos = getMousePos(c, evt);
 		   if(WithInContinueArea()==true){
 			uplock=false;
@@ -911,6 +916,8 @@ contDownHandler = function(evt) {
         }
 
 		contUpHanlder = function(evt) {
+			if(validity == false)
+				return;
         //   mousePos = getMousePos(c, evt);
 		   if(WithInContinueArea()==true){
 			
@@ -920,6 +927,7 @@ contDownHandler = function(evt) {
 			//DrawContinue(1);
 		
 			 var c = document.getElementById("myCanvas");
+			 validity = false;
 			 	c.removeEventListener('mousemove',contMoveHandler);
 			c.removeEventListener('mousedown',contDownHandler);
 			c.removeEventListener('mouseup',contUpHanlder);
