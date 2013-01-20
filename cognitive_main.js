@@ -1,6 +1,11 @@
 var mousePos="undefined";
 //var GridCurrent = "undefined";
 var GridLast = "undefined";
+var startX = 328;
+
+var ADpool;
+
+var startY = 62;
 var halted = "false";
 var dimension = 4;
 var gridD = 80;
@@ -123,7 +128,7 @@ function grayShadow()
 
 	
 	//alert("test");
-	  var imgd = ctx.getImageData(0, 0, dimension*gridD, dimension*gridD);
+	  var imgd = ctx.getImageData(startX, startY, dimension*gridD, dimension*gridD);
     
 	 
 	 
@@ -144,7 +149,7 @@ for(i = 0;i<len;i+=4){
 
    
    }
-     ctx.putImageData(imgd,0,0);
+     ctx.putImageData(imgd,startX,startY);
 
 }
 function calculateCountDownMSec()
@@ -200,14 +205,14 @@ for(i=1;i<=symbolNum;i++){
 	{
 		var c = document.getElementById("myCanvas");
 		var context =  c.getContext('2d');
-		context.drawImage(this, x*gridD, y*gridD, gridD, gridD);
+		context.drawImage(this, x*gridD+startX, y*gridD+startY, gridD, gridD);
 	};
 	
 	shadowMatrix[i].shadowHerDetail = function(x, y, dx, dy, xoffset, yoffset)
 	{
 		var c = document.getElementById("myCanvas");
 		var context =  c.getContext('2d');
-		context.drawImage(this, x*gridD+xoffset, y*gridD+yoffset, dx, dy);
+		context.drawImage(this, x*gridD+startX+xoffset, y*gridD+startY+yoffset, dx, dy);
 	};
 
 	
@@ -220,14 +225,14 @@ emptyShadower.shadowHer =function(x,y)
 {
 		var c = document.getElementById("myCanvas");
 		var context =  c.getContext('2d');
-		context.drawImage(this, x*gridD, y*gridD, gridD, gridD);
+		context.drawImage(this, x*gridD+startX, y*gridD+startY, gridD, gridD);
 
 };
 emptyShadower.shadowHerDetail = function(x, y, dx, dy,xoffset, yoffset)
 	{
 		var c = document.getElementById("myCanvas");
 		var context =  c.getContext('2d');
-		context.drawImage(this, x*gridD+xoffset, y*gridD+yoffset, dx, dy);
+		context.drawImage(this, x*gridD+startX+xoffset, y*gridD+startY+yoffset, dx, dy);
 	};
 
 blankShadower = new Image();
@@ -236,7 +241,7 @@ blankShadower.shadowHer = function (x,y)
 {
 	var c = document.getElementById("myCanvas");
 	var context = c.getContext('2d');
-	context.drawImage(this, x*gridD, y*gridD, gridD, gridD);
+	context.drawImage(this, x*gridD+startX, y*gridD+startY, gridD, gridD);
 
 
 }
@@ -324,13 +329,19 @@ function whichGrid()
   if(mousePos=="undefined")
 	return "undefined";
 
+	
+	
     var my_x = mousePos.x;
 	var my_y = mousePos.y;
  
+    if(my_x<startX||my_x>startX+gridD*dimension||my_y<startY||my_y>startY+gridD*dimension)
+		return "undefined";
+ 
+ 
 
      return {
-      x: Math.floor(my_x/gridD),
-      y: Math.floor(my_y/gridD)
+      x: Math.floor((my_x-startX)/gridD),
+      y: Math.floor((my_y-startY)/gridD)
     };
 	
 
@@ -505,6 +516,35 @@ function flipImage(image, ctx, flipH, flipV) {
 };
 
 */
+function DrawAd()
+{
+   ADpool = new Array(4);
+   for(i=0;i<4;i++)
+   {
+	ADpool[i] = new Image();
+   ADpool[i].src = "images/ad1.jpg";
+  
+   ADpool[i].onload = function()
+   {
+   
+		var c = document.getElementById("myCanvas");
+   //alert(c);
+		var ctx=c.getContext("2d");
+      //  alert("Hello");
+    //  alert(this);
+    
+		
+
+		//ctx.scale(-1, 1);
+	//	ctx.translate(width, 0);
+	//flipImage(image, ctx, 1, flipV);
+      ctx.drawImage(this, startX/2-this.naturalWidth/2, 160, this.naturalWidth, this.naturalHeight)
+   
+   }
+	}
+}
+
+
 function drawPicasso(){
      var c = document.getElementById("myCanvas");
    //alert(c);
@@ -543,7 +583,7 @@ function drawPicasso(){
 		//ctx.scale(-1, 1);
 	//	ctx.translate(width, 0);
 	//flipImage(image, ctx, 1, flipV);
-      ctx.drawImage(this,this.j*gridD,this.i*gridD, gridD, gridD);
+      ctx.drawImage(this,this.j*gridD+startX,this.i*gridD+startY, gridD, gridD);
 	  //ctx.scale(-1, 1);
 	//  ctx.scale(-1, 1);
      /* if(this.i==0&&this.j==0)
@@ -566,12 +606,13 @@ function drawPicasso(){
 
 function onloadHelper(event)
 {
- $('.mywidgets').hide();
+ //$('.mywidgets').hide();
    var c = document.getElementById("myCanvas");
 	var context = c.getContext('2d');
 
      enlightPicasso();
 	 shadowPreload();
+	 DrawAd();
 	 drawPicasso();
 	 
 	  setCountDown();

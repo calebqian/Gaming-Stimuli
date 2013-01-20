@@ -1,272 +1,80 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
+<!-- Website Template by freewebsitetemplates.com -->
 <html>
 <head>
 
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
-<script type="text/javascript" src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
-<script type="text/javascript" src="jquery.autoheight.js"></script>
-
 <script type="text/javascript">
+	var hardness = 0;
 
-
-function triplecheck()
-{
-    var hi= confirm("Have you completed and submit the survey?");
-    if (hi== true){
-	
-	Miski();
-        //alert("hi");
-    }else{
-       // alert("Meany!!!");
-    }
-}
-/*
- function testing () {
-         $.ajax({
-           url: 'https://mediaillinois.qualtrics.com/SE/?SID=SV_ewI7RG7RtNMOBGR',
-           type: 'GET',
-           success: function(res) {
-        //     var content = $(res);
-            alert($(res.responseText).text());
-
-		 $('#test').html(res.responseText);
-           }
-         });
-       }*/
-	   var TimeLimit  = 8000;
-	   var src_ct = 0;
-	   var countDownStart; // the time between Jan 1st, 1970 and the start
-	    //var src1 = 
-		var srcarr = new Array();
-		var wheight;
-	//	alert(wheight);
-	 srcarr[0] = "intro-easy.html" //easy perceptual intro
-		srcarr[1] = "game-easy.html"; //easy perceptual
- srcarr[2] = "https://mediaillinois.qualtrics.com/SE/?SID=SV_6nkVVyvZ765jqXr"; //survey
-
-
- 
- srcarr[3]= "cognitive-intro.html"; //hard cognitive intro
- srcarr[4] = "cognitive-hard.html"; //hard cognitive game
- srcarr[5] = "https://mediaillinois.qualtrics.com/SE/?SID=SV_dpAJArXBEBUy1Qp"; //cognitive survey
- 
- srcarr[6] =  "intro-easy.html"; //hard game intro
- srcarr[7]= "game-intermediate.html"; //
- srcarr[8] = "https://mediaillinois.qualtrics.com/SE/?SID=SV_7OPln38sxpGUIyp"; //medium game survey
- srcarr[9] =  "cognitive-intro.html";
- srcarr[10] = "cognitive-easy.html"; //cognitive easy
- srcarr[11] = "https://mediaillinois.qualtrics.com/SE/?SID=SV_8dIeArqj8h7E1Lf"; //survey
- srcarr[12] = "intro-hard.html";
- srcarr[13] = "game-hard.html";
- srcarr[14] = "https://mediaillinois.qualtrics.com/SE/?SID=SV_cx0TvsYGPTPn9PL"; //survey
- srcarr[15] = "https://mediaillinois.qualtrics.com/SE/?SID=SV_bjYBtvFYLoA1AmF"; 
- srcarr[16]= "end.html";
- 
- 
-function checkCountComplete(countDownMSec)
-{
-    if(TimeLimit - countDownMSec <=0)
-	   return true;
-	   
-	return false;
-
-
-}
- function calculateCountDownMSec()
-{
-
- var d = new Date();
-    var n = d.getTime(); //the time right now
-	
-	return n-countDownStart;
-
-}
-
- function alistar()
- {
- // if(src_ct == 3||src_ct==6||src_ct==9||src_ct==12||src_ct==15)
- // {
- 
- if(src_ct == 3||src_ct==6||src_ct==9||src_ct==12||src_ct==15||src_ct==16)
-	{	
-		TimeLimit = 8000;
-	}
-	else{
-		TimeLimit = 15000+3000;
-		if(src_ct==2)
-			TimeLimit = 10000+3000;
-	
-	
-	}
-
- if(src_ct == 2||src_ct==3||src_ct==5||src_ct==6||src_ct==8||src_ct==9||src_ct==11||src_ct==12||src_ct==14||src_ct==15||src_ct==16){
- 
- 
-		$('#continue').hide();
-		$('#continue_label').text("");
-		
-		
-	}
-	else if(src_ct==4||src_ct==7||src_ct==10||src_ct==13||src_ct==16||src_ct==17)
-	{
-		$('#continue_label').text("");
-	
-	}
-	
-	
-	//$('#continue_label;).text("");
-		//StartCountDownThread();
-	
-		 
-		if(src_ct == 2||src_ct==3||src_ct==5||src_ct==6||src_ct==8||src_ct==9||src_ct==11||src_ct==12||src_ct==14||src_ct==15||src_ct==16){
-		 setCountDown();
-	intervalHandler = setInterval(function(){StartCountDownThread();}, 0); 
-  }
- // }
-  
-  /*else{
-  
-  
-  
-  if(src_ct<=15){
-	
-	
-	
-
-	 $('#continue').show();
-	}
-     
-	  $('#continue_label').text("");
-  
-  }
- */
- }
-
- 
- 
- $(document).ready(function(){
-
-	var c = document.getElementById("container");
-//  c.src = srcarr[src_ct];
- wheight = $(document).height()-$('#continue').height()*3;
-//alert(wheight);
-  c.height = wheight;
-
- 
- /*
- var url = 'https://mediaillinois.qualtrics.com/SE/?SID=SV_ewI7RG7RtNMOBGR';
-     $.get(url, function(response) {
-
-	alert(response.responseText);
-          $('#test').html(response.responseText);
-     });
-*/
-	//testing();
-	//$('<script>', {src: '/main.js'}).appendTo('head');
-
-            //    $('#test').load('Game%20Survey.html', function() {    
-	//onloadHelper();
-	//$.get('http://www.google.com/', function(data){
-	
-		//alert(data);
-		//$('#test').html(data.responseText);
-	
-	
-//	});
-});
-
-
-function StartCountDownThread() {
-   // var c = document.getElementById("myCanvas");
-	//var context = c.getContext("2d");
-	//var inputText = document.getElementById("continue_label");
-		var count = calculateCountDownMSec();
-	if(checkCountComplete(count)==true)
-	{
-	   //alert("check");
-	   window.clearInterval(intervalHandler);
-	 // grayShadow();
-	  // disableControl();
-	  $('#continue').show();
-	  if(src_ct == 3||src_ct==6||src_ct==9||src_ct==12||src_ct==15)
-	  $('#continue_label').text("Please continue after you submit the survey.");
-	    return;
-	
-	}
-	
-		
-
-	var diff = TimeLimit - count;
-var sec = Math.round(diff/1000);
-if(src_ct == 3||src_ct==6||src_ct==9||src_ct==12||src_ct==15||src_ct==16)
-	$('#continue_label').text(  "Please complete the survey before clicking Continue button. The Continue button will appear in "+ sec.toString()+ " seconds.");
-	
-	
-	
-//	alert("ready");
-}
-
-
-function setCountDown()
-{
-    var d = new Date();
-    var n = d.getTime();
-   countDownStart = n;
-
-
-}
-function Miski()
-{
-
-
-	//alert(count);
-	
-	//alert(count);
-	/*
-  if(checkCountComplete(count)==false)
-  {
-	$('#continue').hide();
-	
-  
-  }
-  else {
-  
-  $('#continue').display();
-  }
-  */
- 
-  
-  if(src_ct>16){
-	$('#continue').hide();
-	return;
-	
-	}
-  var c = document.getElementById("container");
-  c.src = srcarr[src_ct];
-  c.height = wheight;
- // $('#container').src = "src" + src_ct;
- // $('#container').reload();
-
-  src_ct++;
-  if(src_ct>16){
-	$('#continue').hide();
-	//return;
-	
-	}
-}
 
 </script>
+<script type="text/javascript" src="cognitive_main.js">
 
+</script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
+
+	<meta charset="UTF-8">
+	<title>Game Stimuli</title>
+	<link rel="stylesheet" href="css/style.css" type="text/css">
 </head>
 <body>
+	<div id="background">
+		<div id="header">
+			<div>
+				<div>
+					<a href="" class="logo"><img src="images/logo.png" alt=""></a>
+					<ul>
+						<li class="selected">
+							<a  id="menu1">home</a>
+						</li>
+						<li>
+							<a  id="menu2">media</a>
+						</li>
+						<li>
+							<a  id="menu3">games</a>
+						</li>
+						<li>
+							<a  id="menu4">about</a>
+						</li>
+						<li>
+							<a  id="menu5">blog</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div id="body">
+			<div>
+				<div>
+					<div class="featured">
+					
+					<div id="canvas-container">
+					
+						<canvas id="myCanvas" width="976" height="445">				
+						Your browser does not support the HTML5 canvas tag.
+				</canvas>
+	</div>
+		
+ <input type="text"   class="mywidgets"  id="Clock" readonly ="readonly" value="15.000">
+<input type = "text"   class="mywidgets"  id = "score" readonly = "readonly" value="0">
+<!--<input type = "text" id="totalPairs" readonly= "readonly" value = "0">-->
+<input type = "text"   class="mywidgets"  id="discoveryPercent" readonly ="readonly" value = "0"></br>
 
-<iframe id="container" onload = "alistar();"width="100%"   scrolling="auto" frameborder="0" seamless="seamless" src="intro.html"></iframe>
-
-
-
-<input type="button" id="continue" value = "Continue" onClick="if(src_ct == 3||src_ct==6||src_ct==9||src_ct==12||src_ct==15)triplecheck();else Miski();">   </input>
-<b id='continue_label'></b>
-
+<!--<input type = "button" id ="startButton" value="start" onClick="startNow();"> -->
+<p id="status_count">Game will start in 3 seconds...</p>
+					</div>
+				
+				</div>
+			</div>
+		</div>
+		<div id="footer">
+			<div>
+				
+				<p>
+					@ copyright 2012. all rights reserved.
+				</p>
+			</div>
+		</div>
+	</div>
 </body>
-
 </html>
