@@ -731,6 +731,9 @@ function WithInContinueArea()
 }
 
 gameMouseHandler = function(evt) {
+
+		var c = document.getElementById("myCanvas");
+		var context = c.getContext('2d');
            mousePos = getMousePos(c, evt);
 		   
 		
