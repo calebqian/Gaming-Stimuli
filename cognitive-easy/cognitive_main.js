@@ -641,6 +641,7 @@ function DrawAd()
 function ClearWhite()
 {
     uplock = false;
+	validity = false;
     var c = document.getElementById("myCanvas");
    //alert(c);
       var ctx =c.getContext("2d");
@@ -897,7 +898,7 @@ function(evt) {
 			
 			}
 			else{
-			uplock=true;
+			uplock = true;
 			DrawContinue(1);
 				
 			}
