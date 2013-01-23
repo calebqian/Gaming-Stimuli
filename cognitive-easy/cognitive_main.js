@@ -523,10 +523,6 @@ function flipImage(image, ctx, flipH, flipV) {
 
 
 function DrawContinue(status){
-
-	
-	
-	
 	switch(status)
 	{
 	case 1: //nothing
@@ -564,7 +560,7 @@ function DrawContinue(status){
 	//flipImage(image, ctx, 1, flipV);
       ctx.drawImage(this, parseInt((cwidth-nWidth)/2-nWidth), parseInt((cheight-nHeight)/2+WnHeight/2-nHeight*2));
 	
-	
+
 	
 	
 	}
@@ -954,11 +950,10 @@ window.onload = function()
 {
 
 	contSlot = new Image();
-   var c = document.getElementById("myCanvas");
-	var context = c.getContext('2d');
-
 	DrawWelcome();
 	DrawContinue(1);
+	var c = document.getElementById("myCanvas");
+	var context = c.getContext('2d');
 	c.addEventListener('mousedown',contDownHandler, false);
 	c.addEventListener('mouseup', contUpHanlder, false);
 	c.addEventListener('mousemove', contMoveHandler, false);
