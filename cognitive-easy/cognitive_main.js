@@ -4,6 +4,8 @@ var GridLast = "undefined";
 var bgLoaded = false;
 var validity = true;
 var startX = 328;
+var init_X;
+var init_Y;
 var contEnabled = true;
 var uplock = true;
 var ADpool;
@@ -61,6 +63,50 @@ function checkCountComplete(countDownMSec)
 
 
 }
+
+
+function OfficialStartScreen(){
+
+      validity = true;
+    WelcomeSlot = new Image();
+	contSlot.src = "images/start.jpg";
+	WelcomeSlot.src = "images/start_official.jpg";
+	WelcomeSlot.onload = function()
+	{
+		
+	var c = document.getElementById("myCanvas");
+   //alert(c);
+		var ctx=c.getContext("2d");
+      //  alert("Hello");
+    //  alert(this);
+    var cheight = c.height;
+	var cwidth = c.width;
+	
+
+
+		//ctx.scale(-1, 1);
+	//	ctx.translate(width, 0);
+	//flipImage(image, ctx, 1, flipV);
+      ctx.drawImage(this, parseInt(init_X), parseInt(init_Y), this.naturalWidth, this.naturalHeight);
+				var nWidth = contSlot.naturalWidth;
+		var nHeight = contSlot.naturalHeight;
+			var WnHeight = WelcomeSlot.naturalHeight;
+		var WnWidth = WelcomeSlot.naturalWidth;
+	  ctx.drawImage(contSlot, parseInt(init_X)+30, parseInt((cheight-nHeight)/2+WnHeight/2-nHeight*2)+40);
+	//c.addEventListener('mousedown',startDownHandler, false);
+	
+	c.addEventListener('mouseup', OfficialStartUpHanlder, false);
+	//c.addEventListener('mousemove', startMoveHandler, false);
+	
+	
+	}
+
+
+
+
+}
+
+
 function StartCountDownThread() {
    // var c = document.getElementById("myCanvas");
 	//var context = c.getContext("2d");
@@ -72,6 +118,8 @@ function StartCountDownThread() {
 	   window.clearInterval(intervalHandler);
 	   grayShadow();
 	   disableControl();
+	   OfficialStartScreen();
+	   
 	    return;
 	
 	}
@@ -382,7 +430,8 @@ function updateScoreTest()
 
    
    var c = document.getElementById ("myCanvas");
-    c.removeAttribute("onClick");
+ //c.removeEventListener('mousemove',gameMouseHandler);
+  c.removeAttribute("onClick");
 	
   //alert("??");
 }
@@ -590,13 +639,14 @@ function DrawWelcome()
     //  alert(this);
     var cheight = c.height;
 	var cwidth = c.width;
-	
+    init_X = 	(cwidth-this.naturalWidth)/2;
+	init_Y = (cheight-this.naturalHeight)/2
 
 
 		//ctx.scale(-1, 1);
 	//	ctx.translate(width, 0);
 	//flipImage(image, ctx, 1, flipV);
-      ctx.drawImage(this, parseInt((cwidth-this.naturalWidth)/2), parseInt((cheight-this.naturalHeight)/2), this.naturalWidth, this.naturalHeight);
+      ctx.drawImage(this, parseInt(init_X), parseInt(init_Y), this.naturalWidth, this.naturalHeight);
 				var nWidth = contSlot.naturalWidth;
 		var nHeight = contSlot.naturalHeight;
 			var WnHeight = WelcomeSlot.naturalHeight;
@@ -711,6 +761,68 @@ function drawPicasso(){
    }
 
 }
+
+function WithinOfficialStartArea()
+{
+if(contEnabled == false)
+		return false;
+	if(contSlot == "undefined")
+		return false;
+	var c = document.getElementById("myCanvas");
+   //alert(c);
+		var ctx=c.getContext("2d");
+		
+	var cheight = c.height;
+	var cwidth = c.width;
+		var nWidth = contSlot.naturalWidth;
+		var nHeight = contSlot.naturalHeight;
+			var WnHeight = WelcomeSlot.naturalHeight;
+		var WnWidth = WelcomeSlot.naturalWidth;
+    var smallX = parseInt(init_X)+30;
+	var smallY = parseInt((cheight-nHeight)/2+WnHeight/2-nHeight*2)+40;
+   if(mousePos.x < smallX || mousePos.y<smallY||mousePos.x>=smallX+contSlot.naturalWidth||mousePos.y>=smallY+contSlot.naturalHeight)
+   {
+	//out of the area
+		return false;
+   
+   }
+   return true;
+ 
+
+
+}
+function WithinStartArea()
+{
+	if(contEnabled == false)
+		return false;
+	if(contSlot == "undefined")
+		return false;
+	var c = document.getElementById("myCanvas");
+   //alert(c);
+		var ctx=c.getContext("2d");
+		
+	var cheight = c.height;
+	var cwidth = c.width;
+		var nWidth = contSlot.naturalWidth;
+		var nHeight = contSlot.naturalHeight;
+			var WnHeight = WelcomeSlot.naturalHeight;
+		var WnWidth = WelcomeSlot.naturalWidth;
+    var smallX = parseInt(init_X)+30;
+	var smallY = parseInt((cheight-nHeight)/2+WnHeight/2-nHeight*2)+10;
+   if(mousePos.x < smallX || mousePos.y<smallY||mousePos.x>=smallX+contSlot.naturalWidth||mousePos.y>=smallY+contSlot.naturalHeight)
+   {
+	//out of the area
+		return false;
+   
+   }
+   
+   
+   
+   return true;
+ 
+
+}
+
 function WithInContinueArea()
 {
 	if(contEnabled == false)
@@ -909,7 +1021,43 @@ function(evt) {
           //var message = 'Mouse position: ' + mousePos.x + ',' + mousePos.y;
          // writeMessage(c, message);
         }
+ function StartScreen(){
+    validity = true;
+    WelcomeSlot = new Image();
+	contSlot.src = "images/start.jpg";
+	WelcomeSlot.src = "images/start_prac.jpg";
+	WelcomeSlot.onload = function()
+	{
+		
+	var c = document.getElementById("myCanvas");
+   //alert(c);
+		var ctx=c.getContext("2d");
+      //  alert("Hello");
+    //  alert(this);
+    var cheight = c.height;
+	var cwidth = c.width;
+	
 
+
+		//ctx.scale(-1, 1);
+	//	ctx.translate(width, 0);
+	//flipImage(image, ctx, 1, flipV);
+      ctx.drawImage(this, parseInt(init_X), parseInt(init_Y), this.naturalWidth, this.naturalHeight);
+				var nWidth = contSlot.naturalWidth;
+		var nHeight = contSlot.naturalHeight;
+			var WnHeight = WelcomeSlot.naturalHeight;
+		var WnWidth = WelcomeSlot.naturalWidth;
+	  ctx.drawImage(contSlot, parseInt(init_X)+30, parseInt((cheight-nHeight)/2+WnHeight/2-nHeight*2)+10);
+	//c.addEventListener('mousedown',startDownHandler, false);
+	
+	c.addEventListener('mouseup', startUpHanlder, false);
+	//c.addEventListener('mousemove', startMoveHandler, false);
+	
+	
+	}
+
+
+ }
 contDownHandler = function(evt) {
 	if(validity == false)
 		return;
@@ -929,6 +1077,67 @@ contDownHandler = function(evt) {
           //var message = 'Mouse position: ' + mousePos.x + ',' + mousePos.y;
          // writeMessage(c, message);
         }
+		
+		OfficialStartUpHanlder = function (evt) {
+		
+		 //alert("startup entered");
+			
+			if(validity == false)
+				return;
+				
+				
+				 var c = document.getElementById("myCanvas");
+				 mousePos = getMousePos(c, evt);
+		if(WithinOfficialStartArea() == true)
+		{ 
+		   
+			
+			
+		//	c.removeEventListener('mousemove',contMoveHandler);
+			//c.removeEventListener('mousedown',contDownHandler);
+		
+			c.removeEventListener('mouseup',OfficialStartUpHanlder);
+			//var context = c.getContext('2d');
+			ClearWhite();
+		//	  alert("detected");
+			onloadHelper(evt);
+		
+		
+		}
+	
+		
+		
+		}
+		startUpHanlder = function(evt){
+		
+		  //alert("startup entered");
+			
+			if(validity == false)
+				return;
+				
+				
+				 var c = document.getElementById("myCanvas");
+				 mousePos = getMousePos(c, evt);
+		if(WithinStartArea() == true)
+		{ 
+		   
+			
+			
+		//	c.removeEventListener('mousemove',contMoveHandler);
+			//c.removeEventListener('mousedown',contDownHandler);
+		
+			c.removeEventListener('mouseup',startUpHanlder);
+			//var context = c.getContext('2d');
+			ClearWhite();
+		//	  alert("detected");
+			onloadHelper(evt);
+		
+		
+		}
+	
+		
+		
+		}
 
 		contUpHanlder = function(evt) {
 			if(validity == false)
@@ -948,7 +1157,7 @@ contDownHandler = function(evt) {
 			c.removeEventListener('mouseup',contUpHanlder);
 			 	var context = c.getContext('2d');
 		  ClearWhite();
-		  onloadHelper(evt);
+		  StartScreen();
 			//c.width=c.width;
 			
 			
