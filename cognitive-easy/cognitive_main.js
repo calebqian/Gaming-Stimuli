@@ -552,12 +552,15 @@ function DrawContinue(status){
     //  alert(this);
     var cheight = c.height;
 	var cwidth = c.width;
-		
+		var nWidth = this.naturalWidth;
+		var nHeight = this.naturalHeight;
+		var WnHeight = WelcomeSlot.naturalHeight;
+		var WnWidth = WelcomeSlot.naturalWidth;
 
 		//ctx.scale(-1, 1);
 	//	ctx.translate(width, 0);
 	//flipImage(image, ctx, 1, flipV);
-      ctx.drawImage(this, parseInt((cwidth-this.naturalWidth)/2-this.naturalWidth), parseInt((cheight-this.naturalHeight)/2+WelcomeSlot.naturalHeight/2-this.naturalHeight*2), this.naturalWidth, this.naturalHeight);
+      ctx.drawImage(this, parseInt((cwidth-nWidth)/2-nWidth), parseInt((cheight-nHeight)/2+WnHeight/2-nHeight*2), nWidth, nHeight);
 	
 	
 	
@@ -956,11 +959,11 @@ window.onload = function()
 	var context = c.getContext('2d');
 	DrawWelcome();
 	DrawContinue(1);
-	
+	c.addEventListener('mousedown',contDownHandler, false);
+	c.addEventListener('mouseup', contUpHanlder, false);
 	c.addEventListener('mousemove', contMoveHandler, false);
 
-		c.addEventListener('mousedown',contDownHandler, false);
-				c.addEventListener('mouseup', contUpHanlder, false);
+	
 		
 		
 }
