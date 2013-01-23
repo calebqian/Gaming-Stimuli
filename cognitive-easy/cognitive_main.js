@@ -520,6 +520,8 @@ function flipImage(image, ctx, flipH, flipV) {
 };
 
 */
+
+
 function DrawContinue(status){
 
 	contSlot = new Image();
@@ -566,7 +568,7 @@ function DrawContinue(status){
 	
 	
 	}
-
+	
 }
 
 
