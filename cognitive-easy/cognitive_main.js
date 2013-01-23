@@ -544,7 +544,7 @@ function DrawContinue(status){
 
     
 	}
-	
+	/*
 	contSlot.onload = function()
 	{
 			var c = document.getElementById("myCanvas");
@@ -564,12 +564,12 @@ function DrawContinue(status){
 	//flipImage(image, ctx, 1, flipV);
 	
 	
-      ctx.drawImage(this, parseInt((cwidth-nWidth)/2-nWidth), parseInt((cheight-nHeight)/2+WnHeight/2-nHeight*2));
+   //   ctx.drawImage(this, parseInt((cwidth-nWidth)/2-nWidth), parseInt((cheight-nHeight)/2+WnHeight/2-nHeight*2));
 	
 
 	
 	
-	}
+	}*/
 	
 	
 }
