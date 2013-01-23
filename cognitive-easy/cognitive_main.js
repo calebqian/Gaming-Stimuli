@@ -560,7 +560,7 @@ function DrawContinue(status){
 		//ctx.scale(-1, 1);
 	//	ctx.translate(width, 0);
 	//flipImage(image, ctx, 1, flipV);
-      ctx.drawImage(this, parseInt((cwidth-nWidth)/2-nWidth), parseInt((cheight-nHeight)/2+WnHeight/2-nHeight*2), nWidth, nHeight);
+      ctx.drawImage(this, parseInt((cwidth-nWidth)/2-nWidth), parseInt((cheight-nHeight)/2+WnHeight/2-nHeight*2));
 	
 	
 	
@@ -629,14 +629,11 @@ function DrawAd()
 }
 function ClearWhite()
 {
-
+    uplock = false;
     var c = document.getElementById("myCanvas");
    //alert(c);
-      var ctx=c.getContext("2d");
-	  var white = new Image();
-	  white.src = "images/featured-game.png";
-	  
-	  ctx.drawImage(white, 0,0);
+      var ctx =c.getContext("2d");
+	 ctx.clearRect ( 0, 0, c.width, c.height);
 
 
 }
