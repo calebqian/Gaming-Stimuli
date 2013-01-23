@@ -1,6 +1,7 @@
 var mousePos="undefined";
 //var GridCurrent = "undefined";
 var GridLast = "undefined";
+var bgLoaded = false;
 var validity = true;
 var startX = 328;
 var contEnabled = true;
@@ -558,12 +559,15 @@ function DrawContinue(status){
 		//ctx.scale(-1, 1);
 	//	ctx.translate(width, 0);
 	//flipImage(image, ctx, 1, flipV);
+	
+	
       ctx.drawImage(this, parseInt((cwidth-nWidth)/2-nWidth), parseInt((cheight-nHeight)/2+WnHeight/2-nHeight*2));
 	
 
 	
 	
 	}
+	
 	
 }
 
@@ -583,12 +587,21 @@ function DrawWelcome()
     //  alert(this);
     var cheight = c.height;
 	var cwidth = c.width;
-		
+	
+
 
 		//ctx.scale(-1, 1);
 	//	ctx.translate(width, 0);
 	//flipImage(image, ctx, 1, flipV);
       ctx.drawImage(this, parseInt((cwidth-this.naturalWidth)/2), parseInt((cheight-this.naturalHeight)/2), this.naturalWidth, this.naturalHeight);
+				var nWidth = contSlot.naturalWidth;
+		var nHeight = contSlot.naturalHeight;
+			var WnHeight = WelcomeSlot.naturalHeight;
+		var WnWidth = WelcomeSlot.naturalWidth;
+	  ctx.drawImage(contSlot, parseInt((cwidth-nWidth)/2-nWidth), parseInt((cheight-nHeight)/2+WnHeight/2-nHeight*2));
+	c.addEventListener('mousedown',contDownHandler, false);
+	c.addEventListener('mouseup', contUpHanlder, false);
+	c.addEventListener('mousemove', contMoveHandler, false);
 	
 	
 	}
@@ -952,11 +965,7 @@ window.onload = function()
 	contSlot = new Image();
 	DrawWelcome();
 	DrawContinue(1);
-	var c = document.getElementById("myCanvas");
-	var context = c.getContext('2d');
-	c.addEventListener('mousedown',contDownHandler, false);
-	c.addEventListener('mouseup', contUpHanlder, false);
-	c.addEventListener('mousemove', contMoveHandler, false);
+
 
 	
 		
