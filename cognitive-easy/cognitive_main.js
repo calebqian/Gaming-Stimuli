@@ -524,6 +524,9 @@ function flipImage(image, ctx, flipH, flipV) {
 
 
 function DrawContinue(status){
+
+   if(validity == false)
+     return;
 	switch(status)
 	{
 	case 1: //nothing
