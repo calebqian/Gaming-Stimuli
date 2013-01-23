@@ -937,9 +937,9 @@ contDownHandler = function(evt) {
 				//alert("gotcha");
 				uplock=true;
 			//DrawContinue(1);
-		
+		    validity = false;
 			 var c = document.getElementById("myCanvas");
-			 validity = false;
+			
 			 	c.removeEventListener('mousemove',contMoveHandler);
 			c.removeEventListener('mousedown',contDownHandler);
 			c.removeEventListener('mouseup',contUpHanlder);
