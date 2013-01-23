@@ -524,7 +524,7 @@ function flipImage(image, ctx, flipH, flipV) {
 
 function DrawContinue(status){
 
-	contSlot = new Image();
+	
 	
 	
 	switch(status)
@@ -953,9 +953,10 @@ contDownHandler = function(evt) {
 window.onload = function()
 {
 
-
+	contSlot = new Image();
    var c = document.getElementById("myCanvas");
 	var context = c.getContext('2d');
+
 	DrawWelcome();
 	DrawContinue(1);
 	c.addEventListener('mousedown',contDownHandler, false);
