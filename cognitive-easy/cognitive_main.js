@@ -1,4 +1,5 @@
 var mousePos="undefined";
+var loopCount = 0;
 //var GridCurrent = "undefined";
 var GridLast = "undefined";
 var bgLoaded = false;
@@ -63,10 +64,100 @@ function checkCountComplete(countDownMSec)
 
 
 }
+function BlankScreenCountDownThread()
+{
+  var count = calculateCountDownMSec();
+	if(checkCountComplete(count)==true)
+	{
+	
+		
+		//c.value = "Game will start in"+ count +"seconds...";
+	   //alert("check");
+	   window.clearInterval(intervalHandler);
+	   
+	     if(loopCount == 31)
+	  {
+	  
+		ClearWhite();
+		DrawEndImage();
+	  
+		return;
+	  }
+	   onloadHelper();
+	   //setCountDown();
+	   //TimeLimit = 2000;
+	   //ClearWhite();
+	   //intervalHandler = setInterval(function(){BlankScreenCountDownThread();}, 0);
+	   
+	//   $('#status_count').hide();
+	   //$('#continue').hide();
+	    //setCountDown();
+	//	TimeLimit = 7500;
+	//	intervalHandler = setInterval(function(){StartCountDownThread();}, 0); 
+   }
+
+}
+
+function GrayScreenCountDownThread(){
+
+	var count = calculateCountDownMSec();
+	if(checkCountComplete(count)==true)
+	{
+	
+		
+		//c.value = "Game will start in"+ count +"seconds...";
+	   //alert("check");
+	   window.clearInterval(intervalHandler);
+	   setCountDown();
+	   TimeLimit = 2000;
+	   loopCount++;
+	   ClearWhite();
+	   intervalHandler = setInterval(function(){BlankScreenCountDownThread();}, 0);
+	   
+	//   $('#status_count').hide();
+	   //$('#continue').hide();
+	    //setCountDown();
+	//	TimeLimit = 7500;
+	//	intervalHandler = setInterval(function(){StartCountDownThread();}, 0); 
+   }
+}
+function DrawEndImage(){
+
+	WelcomeSlot = new Image();
+	WelcomeSlot.src = "images/end.jpg";
+	WelcomeSlot.onload = function()
+	{
+		
+	var c = document.getElementById("myCanvas");
+   //alert(c);
+		var ctx=c.getContext("2d");
+      //  alert("Hello");
+    //  alert(this);
+    //var cheight = c.height;
+	//var cwidth = c.width;
+   // init_X = 	(cwidth-this.naturalWidth)/2;
+	//init_Y = (cheight-this.naturalHeight)/2
 
 
+		//ctx.scale(-1, 1);
+	//	ctx.translate(width, 0);
+	//flipImage(image, ctx, 1, flipV);
+      ctx.drawImage(this, parseInt(init_X), parseInt(init_Y), this.naturalWidth, this.naturalHeight);
+	}
+}
 function OfficialStartScreen(){
 
+     if(loopCount!=0) {
+	   
+	  // ClearWhite();
+	   setCountDown();
+		TimeLimit = 1000;
+       intervalHandler = setInterval(function(){GrayScreenCountDownThread();}, 0);
+	   
+	   
+	   return;
+      }
+	
       validity = true;
     WelcomeSlot = new Image();
 	contSlot.src = "images/start.jpg";
@@ -96,6 +187,8 @@ function OfficialStartScreen(){
 	//c.addEventListener('mousedown',startDownHandler, false);
 	
 	c.addEventListener('mouseup', OfficialStartUpHanlder, false);
+	
+	loopCount ++;
 	//c.addEventListener('mousemove', startMoveHandler, false);
 	
 	
@@ -133,6 +226,9 @@ var sec = diff/1000;
 	
 //	alert("ready");
 }
+
+
+
 function StartCountDownThreadForCoolDown() {
    // var c = document.getElementById("myCanvas");
 	//var context = c.getContext("2d");
@@ -145,7 +241,7 @@ function StartCountDownThreadForCoolDown() {
 		//c.value = "Game will start in"+ count +"seconds...";
 	   //alert("check");
 	   window.clearInterval(intervalHandler);
-	   $('#status_count').hide();
+	//   $('#status_count').hide();
 	   //$('#continue').hide();
 	    setCountDown();
 		TimeLimit = 7500;
@@ -1082,6 +1178,9 @@ contDownHandler = function(evt) {
 		
 		 //alert("startup entered");
 			
+
+			
+			
 			if(validity == false)
 				return;
 				
@@ -1099,6 +1198,7 @@ contDownHandler = function(evt) {
 			c.removeEventListener('mouseup',OfficialStartUpHanlder);
 			//var context = c.getContext('2d');
 			ClearWhite();
+			TimeLimit = 2000;
 		//	  alert("detected");
 			onloadHelper(evt);
 		
