@@ -2,8 +2,12 @@ var mousePos="undefined";
 var loopCount = 0;
 //var GridCurrent = "undefined";
 var GridLast = "undefined";
+var halted = "false";
+var ADwidth = 160;
+var ADheight = 120;
 var bgLoaded = false;
 var validity = true;
+var ADPlacements;
 var startX = 328;
 var init_X;
 var init_Y;
@@ -13,7 +17,7 @@ var ADpool;
 var contSlot;
 var WelcomeSlot;
 var startY = 62;
-var halted = "false";
+
 var dimension = 4;
 var gridD = 80;
 var picasso;
@@ -22,7 +26,7 @@ var shadowMatrix;
 var symbolNum = 2;
 var emptyShadower;
 var blankShadower;
-var TimeLimit = 2000; //in ms
+var TimeLimit = 1000; //in ms
 var intervalHandler;
 var countDownStart; // the time between Jan 1st, 1970 and the start
 var score = 0;
@@ -75,7 +79,7 @@ function BlankScreenCountDownThread()
 	   //alert("check");
 	   window.clearInterval(intervalHandler);
 	   
-	     if(loopCount == 31)
+	     if(loopCount == 33)
 	  {
 	  
 		ClearWhite();
@@ -151,7 +155,7 @@ function OfficialStartScreen(){
 	   
 	  // ClearWhite();
 	   setCountDown();
-		TimeLimit = 1000;
+		TimeLimit = 500;
        intervalHandler = setInterval(function(){GrayScreenCountDownThread();}, 0);
 	   
 	   
@@ -244,7 +248,7 @@ function StartCountDownThreadForCoolDown() {
 	//   $('#status_count').hide();
 	   //$('#continue').hide();
 	    setCountDown();
-		TimeLimit = 7500;
+		TimeLimit = 12000;
 		intervalHandler = setInterval(function(){StartCountDownThread();}, 0); 
 	  // grayShadow();
 	   //disableControl();
@@ -254,6 +258,21 @@ function StartCountDownThreadForCoolDown() {
 
 
 	c.setAttribute('onClick', 'makeSelection();');
+	
+	 if(loopCount<=0||(loopCount>=1&&loopCount<=2))
+	 {
+		//no ad, extra practise
+	 }
+	 
+	 else{
+	 
+	    //draw ad depends on the distribution
+		var offsetIndex = loopCount-2-1;
+		//alert(offsetIndex);
+		drawRespectiveAD(ADPlacements[offsetIndex]);
+	 
+	 } 
+	
 		    return;
 	}
 	//var c = document.getElementById("status_count");
@@ -336,7 +355,7 @@ animate(time, time, time+duration, objGrid, subGrid, gridD, gridD, flag, callbac
 function flipBack(obj)
 {
 
-	flip(400, "null",obj, 0, 0);
+	flip(200, "null",obj, 0, 0);
   // emptyShadower.shadowHer(xcord, ycord);
 
 
@@ -760,31 +779,18 @@ function DrawWelcome()
 
 
 
-function DrawAd()
+function LoadAds()
 {
    ADpool = new Array(4);
    for(i=0;i<4;i++)
    {
 	ADpool[i] = new Image();
-   ADpool[i].src = "images/ad1.jpg";
-  
-   ADpool[i].onload = function()
-   {
-   
-		var c = document.getElementById("myCanvas");
-   //alert(c);
-		var ctx=c.getContext("2d");
-      //  alert("Hello");
-    //  alert(this);
-    
-		
 
-		//ctx.scale(-1, 1);
-	//	ctx.translate(width, 0);
-	//flipImage(image, ctx, 1, flipV);
-      ctx.drawImage(this, startX/2-this.naturalWidth/2, 160, this.naturalWidth, this.naturalHeight);
-   
-   }
+	
+		ADpool[i].src = "images/ad"+(i+1).toString()+".jpg";
+	
+	
+	
 	}
 }
 function ClearWhite()
@@ -965,22 +971,187 @@ gameMouseHandler = function(evt) {
          // writeMessage(c, message);
         }
 
+		function drawADSpecific(adnum, X,  Y)
+		{
+		
+		
+			//var img = new Image();
+			
+		//	ADpool[adnum-1].src = "images/ad"+adnum+".jpg";
+		//	alert(img.src);
+			
+			
+				var c = document.getElementById("myCanvas");
+				var ctx = c.getContext("2d");
+				
+				//alert(adnum-1);
+				ctx.drawImage(ADpool[adnum-1], X, Y);
+			
+			
+			
+		
+		
+		
+		}
+		
+		
+		function drawRespectiveAD(offin)
+		{
+		if(offin == 0)
+			return;
+		
+		
+		var c = document.getElementById("myCanvas");
+		var ctx = c.getContext("2d");
+		var x_left = parseInt(((c.width-gridD*dimension)/2 - ADwidth)/2);
+		var x_right = parseInt(x_left + (c.width-(c.width-gridD*dimension)/2));
+		var y_top = parseInt((c.height-gridD*dimension)/2);
+		var y_bot = y_top+gridD*dimension;
+		//var y_left = 0;
+		//var y_right = 0;
+		
+		
+		//define 0 left, 1 right
+		var ad1side = parseInt((Math.random()*1000)) % 2;
+		//alert(ad1side);
+	
+		var y_left = parseInt(Math.random()*1000 % (y_bot-ADheight));
+		var y_right = parseInt(Math.random()*1000 % (y_bot-ADheight));
+		
+		if(y_left<y_top)
+		{
+		
+			y_left += y_top;
+		
+		}
+		
+		if(y_right < y_top)
+		{
+			y_right += y_top;
+		
+		
+		}
+		
+	//	alert(x_left+","+y_left+")");
+	//	alert(x_right+","+y_right);
+		
+		   switch(offin)
+		   {
+		   
+			case 0: 
+				//no ad, drawing nothing
+				
+				break;
+		   
+			case 50:
+			
+			  if(ad1side == 0){
+				drawADSpecific(1, x_left,  y_left);
+				drawADSpecific(3, x_right, y_right);
+				}
+			 else{
+				drawADSpecific(3, x_left,  y_left);
+				drawADSpecific(1, x_right, y_right);
+			 }
+			 
+			 
+			 
+				
+				//evaluation + amouflague
+				
+				
+				
+				
+				break;
+				
+			case 30:
+				  if(ad1side == 0){
+				drawADSpecific(1, x_left,  y_left);
+				drawADSpecific(4, x_right, y_right);
+				
+				
+				
+				}
+			 else{
+				drawADSpecific(4, x_left,  y_left);
+				drawADSpecific(1, x_right, y_right);
+			 }
+			 
+				break;
+				
+			case 500:
+				  if(ad1side == 0){
+				drawADSpecific(2, x_left,  y_left);
+				drawADSpecific(3, x_right, y_right);
+				
+				
+				
+				}
+			 else{
+				drawADSpecific(3, x_left,  y_left);
+				drawADSpecific(2, x_right, y_right);
+			 }
+			 
+				break;
+				
+				
+			case 300: 
+				  if(ad1side == 0){
+				drawADSpecific(2, x_left,  y_left);
+				drawADSpecific(4, x_right, y_right);
+				
+				
+				
+				}
+			 else{
+				drawADSpecific(4, x_left,  y_left);
+				drawADSpecific(2, x_right, y_right);
+			 }
+			 
+				break;
+				
+				
+			default:
+				//default no ad
+				break;
+		   
+		   
+		   
+		   
+		   
+		   
+		   }
+		
+		
+		}
+		
+		
 function onloadHelper(event)
 {
  //$('.mywidgets').hide();
  
 	
  
- 
+   score = 0;
+   GridLast = "undefined";
+	halted = "false";
+   mousePos="undefined";
+   updateScoreTest();
    var c = document.getElementById("myCanvas");
 	var context = c.getContext('2d');
 
+
+    
+	
      enlightPicasso();
 	 shadowPreload();
 	// DrawAd();
 	 drawPicasso();
+	
 	 
+	  TimeLimit = 1000;
 	  setCountDown();
+	 
       intervalHandler = setInterval(function(){StartCountDownThreadForCoolDown();}, 0);
 	 
 	c.addEventListener('mousemove', gameMouseHandler, false);
@@ -1198,7 +1369,7 @@ contDownHandler = function(evt) {
 			c.removeEventListener('mouseup',OfficialStartUpHanlder);
 			//var context = c.getContext('2d');
 			ClearWhite();
-			TimeLimit = 2000;
+			TimeLimit = 1000;
 		//	  alert("detected");
 			onloadHelper(evt);
 		
@@ -1274,6 +1445,64 @@ contDownHandler = function(evt) {
 	  
 window.onload = function()
 {
+
+
+    LoadAds();
+    ADPlacements = new Array(30);
+	for(i = 0;i<30;i++)
+	{
+	   	ADPlacements[i] = 0;
+	}
+	
+	for(i=0;i<20;i++)
+	{
+		ADPlacements[i] = 1;
+	
+	
+	}
+	
+	for(i=0;i<20;i++)
+	{
+	   if(i<10)
+		 ADPlacements[i] *= 10;
+		else
+		 ADPlacements[i] *= 100;
+	
+	}
+	
+	for(i=0;i<20;i++)
+	{
+	    if(i<5 || (i>=10 && i<=14))
+			ADPlacements[i]*= 5;
+	
+	    else {
+			ADPlacements[i] *= 3;
+		
+		}
+	
+	}
+	
+	
+	
+	for(i=0;i<30;i++)
+	{
+	    swapindex1 = parseInt(Math.random()*100)%30;
+//		alert(swapindex1);
+		swapindex2 = parseInt(Math.random()*100)%30;
+	//	alert(swapindex2);
+	
+	    if(ADPlacements[swapindex1]!=ADPlacements[swapindex2])
+		{
+		    ADPlacements[swapindex1] = ADPlacements[swapindex1]^ADPlacements[swapindex2];
+			 ADPlacements[swapindex2] = ADPlacements[swapindex1]^ADPlacements[swapindex2];
+			  ADPlacements[swapindex1] = ADPlacements[swapindex1]^ADPlacements[swapindex2];
+		
+		}
+	
+	}
+	
+	
+	//alert(ADPlacements);
 
 	contSlot = new Image();
 	DrawWelcome();
