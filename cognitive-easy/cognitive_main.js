@@ -790,10 +790,10 @@ function LoadAds()
 		ADpool[i] = new Image();	
 		ADpool[i].src = "images/ad"+(i+1).toString()+".jpg";
 		
-			alert(ADpool[i].src);
+			//alert(ADpool[i].src);
 			ADpool[i].onload = function (){
 			
-			//alert("EVA");
+			alert("EVA");
 		
 		};
 		
