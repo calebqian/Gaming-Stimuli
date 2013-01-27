@@ -985,9 +985,9 @@ gameMouseHandler = function(evt) {
 				
 				
 				imgAD.onload = function(){
-				//alert(adnum-1);
+				//alert(adnum-1);al
 				ctx.drawImage(this, X, Y);
-			
+				alert("I am ready!");
 				}
 			
 		
