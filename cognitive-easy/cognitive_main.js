@@ -1,5 +1,6 @@
 var mousePos="undefined";
 var loopCount = 0;
+var imgAD;
 //var GridCurrent = "undefined";
 var GridLast = "undefined";
 var halted = "false";
