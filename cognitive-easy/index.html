@@ -58,12 +58,28 @@
 						Your browser does not support the HTML5 canvas tag.
 				</canvas>
 	
+		<script type="text/javascript">
+    var frm = $('#contactForm1');
+    
+        $.ajax({
+            type: frm.attr('method'),
+            url: frm.attr('action'),
+            data: frm.serialize(),
+            success: function (data) {
+                alert('ok');
+            }
+        });
+
+ 
+</script>
 		
- <input type="text"   class="mywidgets"  id="Clock" readonly ="readonly" value="7.500">
+		
+		<form id="contactForm1" action = "turnin.php" method="POST">
+ <input type="text"  name="myClock" class="mywidgets"  id="Clock" readonly ="readonly" value="12.000">
 <input type = "text"   class="mywidgets"  id = "score" readonly = "readonly" value="0">
 <!--<input type = "text" id="totalPairs" readonly= "readonly" value = "0">-->
 <input type = "text"   class="mywidgets"  id="discoveryPercent" readonly ="readonly" value = "0"></br>
-
+</form>
 <!--<input type = "button" id ="startButton" value="start" onClick="startNow();"> -->
 <p id="status_count">Game will start in 1 seconds...</p>
 					</div>
