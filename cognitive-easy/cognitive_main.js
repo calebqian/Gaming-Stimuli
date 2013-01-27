@@ -1,6 +1,5 @@
 var mousePos="undefined";
 var loopCount = 0;
-var imgAD;
 //var GridCurrent = "undefined";
 var GridLast = "undefined";
 var halted = "false";
@@ -782,11 +781,19 @@ function DrawWelcome()
 
 function LoadAds()
 {
+
+	loadedImages = 0;
    //ADpool = new Array(4);
    for(i=0;i<4;i++)
    {
 		ADpool[i] = new Image();	
 		ADpool[i].src = "images/ad"+(i+1).toString()+".jpg";
+		ADpool[i].onload = function (){
+			
+			alert("EVA"+ ++loadedImages);
+		
+		}
+	
 	}
 	
 	
@@ -974,21 +981,19 @@ gameMouseHandler = function(evt) {
 		{
 		
 		
-			ADpool[adnum-1] = new Image();
+			//var img = new Image();
 			
-			ADpool[adnum-1].src = "images/ad"+adnum+".jpg";
+		//	ADpool[adnum-1].src = "images/ad"+adnum+".jpg";
 		//	alert(img.src);
 			
 			
 				var c = document.getElementById("myCanvas");
 				var ctx = c.getContext("2d");
 				
-				
-				ADpool[adnum-1].onload = function(){
-				//alert(adnum-1);al
-				ctx.drawImage(this, X, Y);
-				alert("I am ready!");
-				}
+				//alert(adnum-1);
+				ctx.drawImage(ADpool[adnum-1], X, Y);
+			
+			
 			
 		
 		
@@ -1448,7 +1453,7 @@ window.onload = function()
 {
 
 
-   // LoadAds();
+    LoadAds();
     ADPlacements = new Array(30);
 	for(i = 0;i<30;i++)
 	{
