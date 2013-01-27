@@ -788,11 +788,13 @@ function LoadAds()
    {
 		ADpool[i] = new Image();	
 		ADpool[i].src = "images/ad"+(i+1).toString()+".jpg";
-		ADpool[i].onload = function (){
+	
+			ADpool[i].onload = function (){
 			
 			alert("EVA"+ ++loadedImages);
 		
 		}
+		
 	
 	}
 	
