@@ -784,19 +784,19 @@ function LoadAds()
 
 	loadedImages = 0;
    //ADpool = new Array(4);
-   for(i=0;i<4;i++)
+   for(var _i=0;_i<4;_i++)
    {
-		ADpool[i] = new Image();	
-		ADpool[i].src = "./images/ad"+(i+1).toString()+".jpg";
-
-			alert(ADpool[i].src);
-			ADpool[i].onload = function (){
+		ADpool[_i] = new Image();	
+		ADpool[_i].src = "./images/ad"+(_i+1).toString()+".jpg";
+		
+			alert(ADpool[_i].src);
+			ADpool[_i].onload = function (){
 			
 			alert("EVA"+ ++loadedImages);
 		
 		}
 		
-		ADpool[i].src = ADpool[i].src;
+		//ADpool[i].src = ADpool[i].src;
 		
 	
 	}
