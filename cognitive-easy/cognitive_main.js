@@ -782,19 +782,20 @@ function DrawWelcome()
 function LoadAds()
 {
 
-	loadedImages = 0;
+	//loadedImages = 0;
    //ADpool = new Array(4);
-   for(var _i=0;_i<4;_i++)
+   for(var i=0;i<4;i++)
    {
-		ADpool[_i] = new Image();	
-		ADpool[_i].src = "./images/ad"+(_i+1).toString()+".jpg";
+
+		ADpool[i] = new Image();	
+		ADpool[i].src = "images/ad"+(i+1).toString()+".jpg";
 		
-			alert(ADpool[_i].src);
-			ADpool[_i].onload = function (){
+			alert(ADpool[i].src);
+			ADpool[i].onload = function (){
 			
-			alert("EVA"+ ++loadedImages);
+			//alert("EVA");
 		
-		}
+		};
 		
 		//ADpool[i].src = ADpool[i].src;
 		
@@ -804,6 +805,9 @@ function LoadAds()
 	
 
 }
+
+
+
 function ClearWhite()
 {
     uplock = false;
@@ -1332,7 +1336,7 @@ function(evt) {
 	//c.addEventListener('mousemove', startMoveHandler, false);
 	
 	
-	}
+	};
 
 
  }
@@ -1523,4 +1527,4 @@ window.onload = function()
 	
 		
 		
-}
+};
