@@ -13,7 +13,7 @@ var init_X;
 var init_Y;
 var contEnabled = true;
 var uplock = true;
-var ADpool;
+var ADpool = new Array(4);
 var contSlot;
 var WelcomeSlot;
 var startY = 62;
@@ -781,7 +781,7 @@ function DrawWelcome()
 
 function LoadAds()
 {
-   ADpool = new Array(4);
+   //ADpool = new Array(4);
    for(i=0;i<4;i++)
    {
 	ADpool[i] = new Image();
@@ -975,20 +975,18 @@ gameMouseHandler = function(evt) {
 		{
 		
 		
-			var img = new Image();
+			//var img = new Image();
 			
-		img.src = "images/ad"+adnum+".jpg";
+		//	ADpool[adnum-1].src = "images/ad"+adnum+".jpg";
 		//	alert(img.src);
 			
 			
 				var c = document.getElementById("myCanvas");
 				var ctx = c.getContext("2d");
 				
-				
-				img.onload = function(){
 				//alert(adnum-1);
-				ctx.drawImage(this, X, Y);
-				}
+				ctx.drawImage(ADpool[adnum-1], X, Y);
+			
 			
 			
 		
@@ -1449,7 +1447,7 @@ window.onload = function()
 {
 
 
-   // LoadAds();
+    LoadAds();
     ADPlacements = new Array(30);
 	for(i = 0;i<30;i++)
 	{
@@ -1504,7 +1502,7 @@ window.onload = function()
 	}
 	
 	
-	alert(ADPlacements);
+	//alert(ADPlacements);
 
 	contSlot = new Image();
 	DrawWelcome();
