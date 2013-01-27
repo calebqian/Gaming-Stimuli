@@ -974,9 +974,9 @@ gameMouseHandler = function(evt) {
 		{
 		
 		
-			imgAD = new Image();
+			ADpool[adnum-1] = new Image();
 			
-			imgAD.src = "images/ad"+adnum+".jpg";
+			ADpool[adnum-1].src = "images/ad"+adnum+".jpg";
 		//	alert(img.src);
 			
 			
@@ -984,7 +984,7 @@ gameMouseHandler = function(evt) {
 				var ctx = c.getContext("2d");
 				
 				
-				imgAD.onload = function(){
+				ADpool[adnum-1].onload = function(){
 				//alert(adnum-1);al
 				ctx.drawImage(this, X, Y);
 				alert("I am ready!");
