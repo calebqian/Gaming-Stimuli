@@ -772,7 +772,7 @@ function DrawWelcome()
 	c.addEventListener('mousemove', contMoveHandler, false);
 	
 	
-	}
+	};
 
 
 }
