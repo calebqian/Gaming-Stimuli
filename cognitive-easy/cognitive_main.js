@@ -303,7 +303,7 @@ function grayShadow()
 	 
 	var len = imgd.data.length;
     // alert(len);
-for(i = 0;i<len;i+=4){
+for(var i = 0;i<len;i+=4){
 
 
    	 var R =  imgd.data[i];
@@ -366,7 +366,7 @@ function shadowPreload()
 
 shadowMatrix = new Array(symbolNum);
 
-for(i=1;i<=symbolNum;i++){
+for(var i=1;i<=symbolNum;i++){
 	shadowMatrix[i] = new Image();
 	shadowMatrix[i].src = "box"+i+".jpg";  //alert(img);
 	shadowMatrix[i].shadowHer = function(x, y)
@@ -426,12 +426,12 @@ function enlightPicasso()
 	var j = 0;
 	//  var tank = 0;
 	 
-    for(i = 0;i<dimension;i++)
+    for(var i = 0;i<dimension;i++)
    {
    
     picasso[i] = new Array(dimension);
 	//visible[i] = new Array(dimension);
-    for(j=0;j<dimension;j++){
+    for(var j=0;j<dimension;j++){
 	
      picasso[i][j] = -1;
 	// visible[i][j] = -1;
@@ -439,10 +439,10 @@ function enlightPicasso()
    }
    
    
-   for(i=0; i<symbolNum;i++)
+   for(var i=0; i<symbolNum;i++)
 	{
 	   // i indicates the symbol
-		for(j=0;j<eachGroup;j++)
+		for(var j=0;j<eachGroup;j++)
 		{
 		    //j indicates the num of the symbol tha that hasn't been assigned
 			  var dx = Math.floor(Math.random()*dimension);
@@ -823,11 +823,11 @@ function drawPicasso(){
   //alert(ctx);
   ImagePool = new Array(dimension);
  
-  for(i = 0;i<dimension;i++)
+  for(var i = 0;i<dimension;i++)
    {
    ImagePool[i] = new Array(dimension);
     
-    for(j=0;j<dimension;j++){
+    for(var j=0;j<dimension;j++){
 	
 	ImagePool[i][j] = new Image();
 	//if(visible[i][j]==-1){
@@ -1460,19 +1460,19 @@ window.onload = function()
 
     LoadAds();
     ADPlacements = new Array(30);
-	for(i = 0;i<30;i++)
+	for(var i = 0;i<30;i++)
 	{
 	   	ADPlacements[i] = 0;
 	}
 	
-	for(i=0;i<20;i++)
+	for(var i=0;i<20;i++)
 	{
 		ADPlacements[i] = 1;
 	
 	
 	}
 	
-	for(i=0;i<20;i++)
+	for(var i=0;i<20;i++)
 	{
 	   if(i<10)
 		 ADPlacements[i] *= 10;
@@ -1481,7 +1481,7 @@ window.onload = function()
 	
 	}
 	
-	for(i=0;i<20;i++)
+	for(var i=0;i<20;i++)
 	{
 	    if(i<5 || (i>=10 && i<=14))
 			ADPlacements[i]*= 5;
@@ -1495,7 +1495,7 @@ window.onload = function()
 	
 	
 	
-	for(i=0;i<30;i++)
+	for(var i=0;i<30;i++)
 	{
 	    swapindex1 = parseInt(Math.random()*100)%30;
 //		alert(swapindex1);
