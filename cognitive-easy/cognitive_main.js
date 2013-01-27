@@ -784,14 +784,12 @@ function LoadAds()
    //ADpool = new Array(4);
    for(i=0;i<4;i++)
    {
-	ADpool[i] = new Image();
-
-	
+		ADpool[i] = new Image();	
 		ADpool[i].src = "images/ad"+(i+1).toString()+".jpg";
-	
-	
-	
 	}
+	
+	
+
 }
 function ClearWhite()
 {
@@ -975,19 +973,21 @@ gameMouseHandler = function(evt) {
 		{
 		
 		
-			//var img = new Image();
+			var img = new Image();
 			
-		//	ADpool[adnum-1].src = "images/ad"+adnum+".jpg";
+			img.src = "images/ad"+adnum+".jpg";
 		//	alert(img.src);
 			
 			
 				var c = document.getElementById("myCanvas");
 				var ctx = c.getContext("2d");
 				
+				
+				img.onload = function(){
 				//alert(adnum-1);
-				ctx.drawImage(ADpool[adnum-1], X, Y);
+				ctx.drawImage(this, X, Y);
 			
-			
+				}
 			
 		
 		
@@ -1447,7 +1447,7 @@ window.onload = function()
 {
 
 
-    LoadAds();
+   // LoadAds();
     ADPlacements = new Array(30);
 	for(i = 0;i<30;i++)
 	{
@@ -1502,7 +1502,7 @@ window.onload = function()
 	}
 	
 	
-	//alert(ADPlacements);
+	alert(ADPlacements);
 
 	contSlot = new Image();
 	DrawWelcome();
