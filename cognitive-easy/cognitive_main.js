@@ -788,13 +788,15 @@ function LoadAds()
    {
 		ADpool[i] = new Image();	
 		ADpool[i].src = "./images/ad"+(i+1).toString()+".jpg";
-		ADpool[i].crossOrigin = 'anonymous';
+
 			alert(ADpool[i].src);
 			ADpool[i].onload = function (){
 			
 			alert("EVA"+ ++loadedImages);
 		
 		}
+		
+		ADpool[i].src = ADpool[i].src;
 		
 	
 	}
