@@ -973,9 +973,9 @@ gameMouseHandler = function(evt) {
 		{
 		
 		
-			var img = new Image();
+			imgAD = new Image();
 			
-			img.src = "images/ad"+adnum+".jpg";
+			imgAD.src = "images/ad"+adnum+".jpg";
 		//	alert(img.src);
 			
 			
@@ -983,7 +983,7 @@ gameMouseHandler = function(evt) {
 				var ctx = c.getContext("2d");
 				
 				
-				img.onload = function(){
+				imgAD.onload = function(){
 				//alert(adnum-1);
 				ctx.drawImage(this, X, Y);
 			
