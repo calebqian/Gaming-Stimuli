@@ -786,12 +786,32 @@ function LoadAds()
    //ADpool = new Array(4);
    ADpool[0] = new Image();	
    ADpool[0].src = "ad1.jpg";
-   ADpool[1] = new Image();	
+   ADpool[0].onload = function (){
+    alert("0 loaded");
+    ADpool[1] = new Image();	
    ADpool[1].src = "ad2.jpg";
-   ADpool[2] = new Image();	
-   ADpool[2].src = "ad3.jpg";
-   ADpool[3] = new Image();	
-   ADpool[3].src = "ad4.jpg";
+   ADpool[1].onload = function(){
+   
+	alert("1 loaded");
+	 ADpool[2] = new Image();	
+	ADpool[2].src = "ad3.jpg";
+	ADpool[2].onload = function()
+	{
+		alert("2 loaded");
+		ADpool[3] = new Image();	
+		ADpool[3].src = "ad4.jpg";
+		ADpool[3].onload = function (){
+			alert("hey girl");
+		
+		};
+	
+	};
+   
+   };
+   
+   };
+   
+ 
    
    
    /*
