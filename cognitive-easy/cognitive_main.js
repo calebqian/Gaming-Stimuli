@@ -248,7 +248,7 @@ function StartCountDownThreadForCoolDown() {
 	//   $('#status_count').hide();
 	   //$('#continue').hide();
 	    setCountDown();
-		TimeLimit = 12000;
+		TimeLimit = 500;
 		intervalHandler = setInterval(function(){StartCountDownThread();}, 0); 
 	  // grayShadow();
 	   //disableControl();
@@ -784,6 +784,17 @@ function LoadAds()
 
 	//loadedImages = 0;
    //ADpool = new Array(4);
+   ADpool[0] = new Image();	
+   ADpool[0].src = "ad1.jpg";
+   ADpool[1] = new Image();	
+   ADpool[1].src = "ad2.jpg";
+   ADpool[2] = new Image();	
+   ADpool[2].src = "ad3.jpg";
+   ADpool[3] = new Image();	
+   ADpool[3].src = "ad4.jpg";
+   
+   
+   /*
    for(var i=0;i<4;i++)
    {
 
@@ -802,6 +813,7 @@ function LoadAds()
 	
 	}
 	
+	*/
 	
 
 }
