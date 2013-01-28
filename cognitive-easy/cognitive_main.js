@@ -13,7 +13,7 @@ var init_X;
 var init_Y;
 var contEnabled = true;
 var uplock = true;
-var ADpool;
+//var ADpool;
 var contSlot;
 var WelcomeSlot;
 var startY = 62;
