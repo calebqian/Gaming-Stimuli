@@ -111,6 +111,10 @@ function GrayScreenCountDownThread(){
 		
 		//c.value = "Game will start in"+ count +"seconds...";
 	   //alert("check");
+	   if(loopCount>2){
+		//alert("sending data...");
+		send_data();
+	   }
 	   window.clearInterval(intervalHandler);
 	   setCountDown();
 	   TimeLimit = 2000;
@@ -155,7 +159,7 @@ function OfficialStartScreen(){
 	   
 	  // ClearWhite();
 	   setCountDown();
-		TimeLimit = 12000;
+		TimeLimit = 500;
        intervalHandler = setInterval(function(){GrayScreenCountDownThread();}, 0);
 	   
 	   
@@ -1147,10 +1151,24 @@ function onloadHelper(event)
 	halted = "false";
    mousePos="undefined";
    updateScoreTest();
+
    var c = document.getElementById("myCanvas");
 	var context = c.getContext('2d');
 
-
+   if(loopCount>2)
+   {
+	 var havead = document.getElementById("HaveAd");
+	 if(ADPlacements[loopCount-2-1]>0)
+	{
+		havead.value = "1";
+	}
+	else{
+		havead.value = "0";
+	
+	}
+   
+   
+   }
     
 	
      enlightPicasso();
@@ -1459,13 +1477,13 @@ contDownHandler = function(evt) {
 	  {
 		//	alert("entered");
 			var frm = $('#contactForm1');
-			alert(frm.attr('method'));
+			//alert(frm.attr('method'));
 			$.ajax({
             type: frm.attr('method'),
             url: frm.attr('action'),
             data: frm.serialize(),
             success: function (data) {
-                alert('ok');
+          //      alert('ok');
             }
         });
 
@@ -1475,7 +1493,7 @@ window.onload = function()
 
 
     LoadAds();
-	send_data();
+	//send_data();
     ADPlacements = new Array(30);
 	for(var i = 0;i<30;i++)
 	{
