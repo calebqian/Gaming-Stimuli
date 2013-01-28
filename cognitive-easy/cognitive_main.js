@@ -155,7 +155,7 @@ function OfficialStartScreen(){
 	   
 	  // ClearWhite();
 	   setCountDown();
-		TimeLimit = 500;
+		TimeLimit = 12000;
        intervalHandler = setInterval(function(){GrayScreenCountDownThread();}, 0);
 	   
 	   
@@ -788,11 +788,11 @@ function LoadAds()
 		ADpool[i].src = "images/dustbin"+(i+1).toString()+".png";
 		
 			//alert(ADpool[i].src);
-			ADpool[i].onload = function (){
+		//	ADpool[i].onload = function (){
 			
-			alert("EVA");
+		//	alert("EVA");
 		
-		};
+//	};
 		
 		//ADpool[i].src = ADpool[i].src;
 		
@@ -1512,7 +1512,7 @@ window.onload = function()
 	}
 	
 	
-	alert(ADPlacements);
+//	alert(ADPlacements);
 
 	contSlot = new Image();
 	DrawWelcome();
