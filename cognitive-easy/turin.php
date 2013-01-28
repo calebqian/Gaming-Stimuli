@@ -8,9 +8,7 @@ if (!$con)
   }
 mysql_select_db("gamestiAiNKRp4I2", $con);
 
-$STR = "cognitive-easy";
-mysql_query("INSERT INTO survey (game_type, pairs, total, percent, ad)
-VALUES ('cognitive-easy', 40,8, 0.5, TRUE)");
+mysql_query("INSERT INTO survey (GameType, Pairs, Total, Percent, HaveAd) VALUES ('cognitive-easy', 4, 8, 0.567898093, TRUE)");
 
 
 // some code
