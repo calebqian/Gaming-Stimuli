@@ -13,7 +13,7 @@ var init_X;
 var init_Y;
 var contEnabled = true;
 var uplock = true;
-var ADpool = new Array(4);
+var ADpool;
 var contSlot;
 var WelcomeSlot;
 var startY = 62;
@@ -781,7 +781,8 @@ function DrawWelcome()
 
 function LoadAds()
 {
-
+ 
+   ADpool = new Array(4);
 	//loadedImages = 0;
    //ADpool = new Array(4);
    ADpool[0] = new Image();	
