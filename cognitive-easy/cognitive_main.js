@@ -1495,7 +1495,7 @@ window.onload = function()
 {
 
 
-    LoadAds();
+    
     ADPlacements = new Array(30);
 	for(var i = 0;i<30;i++)
 	{
@@ -1551,7 +1551,7 @@ window.onload = function()
 	
 	
 	alert(ADPlacements);
-
+	LoadAds();
 	contSlot = new Image();
 	DrawWelcome();
 	DrawContinue(1);
