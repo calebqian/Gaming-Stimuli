@@ -248,7 +248,7 @@ function StartCountDownThreadForCoolDown() {
 	//   $('#status_count').hide();
 	   //$('#continue').hide();
 	    setCountDown();
-		TimeLimit = 500;
+		TimeLimit = 12000;
 		intervalHandler = setInterval(function(){StartCountDownThread();}, 0); 
 	  // grayShadow();
 	   //disableControl();
@@ -526,7 +526,7 @@ function updateScoreTest()
  //  pairs = countGaps(args);
   // e.value = pairs;
    c.value = score;
-   d.value = Math.round((score/((dimension*dimension)/2))*100)+"%";
+   d.value = score/((dimension*dimension)/2);
    
 
 

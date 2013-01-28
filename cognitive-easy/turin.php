@@ -13,9 +13,38 @@
         die(var_dump($e));
     }
 
-$sql_insert = "INSERT INTO survey (GameType, Pairs, Total, Percent, HaveAd) VALUES ('cognitive-easy', 4, 8, 0.567898093, TRUE)";
+	if(!empty($_POST)){
+		try{
+			$sql_insert = "INSERT INTO survey (GameType, Pairs, Total, Percent, HaveAd) VALUES ('cognitive-easy', 4, 8, 0.37, TRUE)";
+			$gametype=$_POST['gametype'];
+			$pairs = $_POST['Pairs'];
+			$total = $_POST['Total'];
+			$percent = floatval($_POST['Percent']);
+			$havead_str = $_POST['HaveAd'];
+			if($havead_str == "0")
+				$havead = FALSE;
+			else 
+				$havead = TRUE;
+				
+				
+			 $stmt = $conn->prepare($sql_insert);
+			$stmt->bindValue(1, $gametype);
+			$stmt->bindValue(2, $pairs);
+			$stmt->bindValue(3, $total);
+			$stmt->bindValue(4, $percent);
+			$stmt->bindValue(5, $havead);
+			$stmt->execute();
+		
+		}
+	   catch(Exception $e) {
+        die(var_dump($e));
+    }
+	
+	
+	}
+	
+	
 
-$stmt = $conn->query($sql_select);
 
 
 // some code
