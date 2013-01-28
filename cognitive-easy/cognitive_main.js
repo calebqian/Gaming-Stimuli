@@ -785,7 +785,7 @@ function LoadAds()
    {
 
 		ADpool[i] = new Image();	
-		ADpool[i].src = "images/ad"+(i+1).toString()+".png";
+		ADpool[i].src = "images/dustbin"+(i+1).toString()+".png";
 		
 			//alert(ADpool[i].src);
 			ADpool[i].onload = function (){
