@@ -1297,7 +1297,7 @@ function(evt) {
 		
           //var message = 'Mouse position: ' + mousePos.x + ',' + mousePos.y;
          // writeMessage(c, message);
-        }
+        };
  function StartScreen(){
     validity = true;
     WelcomeSlot = new Image();
@@ -1353,7 +1353,7 @@ contDownHandler = function(evt) {
 		
           //var message = 'Mouse position: ' + mousePos.x + ',' + mousePos.y;
          // writeMessage(c, message);
-        }
+        };
 		
 		OfficialStartUpHanlder = function (evt) {
 		
@@ -1388,7 +1388,7 @@ contDownHandler = function(evt) {
 	
 		
 		
-		}
+		};
 		startUpHanlder = function(evt){
 		
 		  //alert("startup entered");
@@ -1418,7 +1418,7 @@ contDownHandler = function(evt) {
 	
 		
 		
-		}
+		};
 
 		contUpHanlder = function(evt) {
 			if(validity == false)
@@ -1451,13 +1451,31 @@ contDownHandler = function(evt) {
 		
           //var message = 'Mouse position: ' + mousePos.x + ',' + mousePos.y;
          // writeMessage(c, message);
-        }
-	  
+        };
+		
+		
+		
+	  function send_data()
+	  {
+		//	alert("entered");
+			var frm = $('#contactForm1');
+			alert(frm.attr('method'));
+			$.ajax({
+            type: frm.attr('method'),
+            url: frm.attr('action'),
+            data: frm.serialize(),
+            success: function (data) {
+                alert('ok');
+            }
+        });
+
+	  }
 window.onload = function()
 {
 
 
     LoadAds();
+	send_data();
     ADPlacements = new Array(30);
 	for(var i = 0;i<30;i++)
 	{
@@ -1518,7 +1536,7 @@ window.onload = function()
 	DrawWelcome();
 	DrawContinue(1);
 
-
+	
 	
 		
 		

@@ -58,23 +58,9 @@
 						Your browser does not support the HTML5 canvas tag.
 				</canvas>
 	
-		<script type="text/javascript">
-    var frm = $('#contactForm1');
-    
-        $.ajax({
-            type: frm.attr('method'),
-            url: frm.attr('action'),
-            data: frm.serialize(),
-            success: function (data) {
-                alert('ok');
-            }
-        });
-
- 
-</script>
 		
 		
-		<form id="contactForm1" action = "turnin.php" method="post"  enctype="multipart/form-data" >
+		<form id="contactForm1" action = "turnin.php" method="POST">
 		
 	<input type="text" name="gametype" class="mywidgets" readonly="readonly" value="cognitive-easy">
  <input type="text"  name="myClock" class="mywidgets"  id="Clock" readonly ="readonly" value="12.000">

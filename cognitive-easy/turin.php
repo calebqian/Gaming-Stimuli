@@ -12,19 +12,16 @@
     catch(Exception $e){
         die(var_dump($e));
     }
-
+	
 	if(!empty($_POST)){
 		try{
 			$sql_insert = "INSERT INTO survey (GameType, Pairs, Total, Percent, HaveAd) VALUES ('cognitive-easy', 4, 8, 0.37, TRUE)";
 			$gametype=$_POST['gametype'];
-			$pairs = $_POST['Pairs'];
-			$total = $_POST['Total'];
+			$pairs = intval($_POST['Pairs']);
+			$total = intval($_POST['Total']);
 			$percent = floatval($_POST['Percent']);
-			$havead_str = $_POST['HaveAd'];
-			if($havead_str == "0")
-				$havead = FALSE;
-			else 
-				$havead = TRUE;
+			$havead_str = boolval(intval($_POST['HaveAd']));
+			
 				
 				
 			 $stmt = $conn->prepare($sql_insert);
