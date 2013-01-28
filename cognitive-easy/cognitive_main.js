@@ -13,7 +13,7 @@ var init_X;
 var init_Y;
 var contEnabled = true;
 var uplock = true;
-//var ADpool;
+var ADpool = new Array(4);
 var contSlot;
 var WelcomeSlot;
 var startY = 62;
@@ -781,46 +781,11 @@ function DrawWelcome()
 
 function LoadAds()
 {
- 
-   ADpool = new Array(4);
-	//loadedImages = 0;
-   //ADpool = new Array(4);
-   ADpool[0] = new Image();	
-   ADpool[0].src = "ad1.jpg";
-   ADpool[0].onload = function (){
-    alert("0 loaded");
-    ADpool[1] = new Image();	
-   ADpool[1].src = "ad2.jpg";
-   ADpool[1].onload = function(){
-   
-	alert("1 loaded");
-	 ADpool[2] = new Image();	
-	ADpool[2].src = "ad3.jpg";
-	ADpool[2].onload = function()
-	{
-		alert("2 loaded");
-		ADpool[3] = new Image();	
-		ADpool[3].src = "ad4.jpg";
-		ADpool[3].onload = function (){
-			alert("hey girl");
-		
-		};
-	
-	};
-   
-   };
-   
-   };
-   
- 
-   
-   
-   /*
    for(var i=0;i<4;i++)
    {
 
 		ADpool[i] = new Image();	
-		ADpool[i].src = "ad"+(i+1).toString()+".jpg";
+		ADpool[i].src = "images/ad"+(i+1).toString()+".png";
 		
 			//alert(ADpool[i].src);
 			ADpool[i].onload = function (){
@@ -833,9 +798,6 @@ function LoadAds()
 		
 	
 	}
-	
-	*/
-	
 
 }
 
@@ -1495,7 +1457,7 @@ window.onload = function()
 {
 
 
-    
+    LoadAds();
     ADPlacements = new Array(30);
 	for(var i = 0;i<30;i++)
 	{
@@ -1551,7 +1513,7 @@ window.onload = function()
 	
 	
 	alert(ADPlacements);
-	LoadAds();
+
 	contSlot = new Image();
 	DrawWelcome();
 	DrawContinue(1);
