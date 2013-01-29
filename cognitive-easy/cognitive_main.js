@@ -111,7 +111,7 @@ function GrayScreenCountDownThread(){
 		
 		//c.value = "Game will start in"+ count +"seconds...";
 	   //alert("check");
-	   if(loopCount>2){
+	   if(loopCount>0){
 		//alert("sending data...");
 		send_data();
 	   }
