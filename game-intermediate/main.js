@@ -6,6 +6,7 @@ var GridCordNext = "undefined";
 var imagedata;
 var background;
 var gridD = 40;
+
 var dimension = 9; //9x9
 var TimeLimit = 3000; //in ms
 var intervalHandler;
@@ -21,13 +22,19 @@ function whichGrid()
   if(mousePos=="undefined")
 	return "undefined";
 
+	
+	
     var my_x = mousePos.x;
 	var my_y = mousePos.y;
  
+    if(my_x<startX||my_x>=startX+gridD*dimension||my_y<startY||my_y>=startY+gridD*dimension)
+		return "undefined";
+ 
+ 
 
      return {
-      x: Math.floor(my_x/gridD),
-      y: Math.floor(my_y/gridD)
+      x: Math.floor((my_x-startX)/gridD),
+      y: Math.floor((my_y-startY)/gridD)
     };
 	
 
@@ -776,36 +783,9 @@ function onloadHelper(event)
   //if(hardness==1)
 //	countFunction = countGaps;
 	
-  $('.mywidgets').hide();
+  //$('.mywidgets').hide();
   
-  if(hardness==2)
-	args = 2;
-//do{
-  enlightPicasso();
- // }
- // while((pairs=countGaps(args))<threshold);
-   pairs=countGaps(args);
-   
- //  alert("test");
-  // drawRandom();
-  shadowPreload();
-   drawPicasso();
-
-  
-  
-   var display = document.getElementById("totalPairs");
-   display.value = pairs;
-   var p = document.getElementById("discoveryPercent");
-   p.value = Math.round((score/(score+pairs))*100)+"%";
-   
-   if(hardness==0)
-   {
-   display = document.getElementById("Clock");
-   display.value = "10.000";
-   }
-   setCountDown();
-   intervalHandler = setInterval(function(){StartCountDownThreadForCoolDown();}, 0);
-  
+ 
    
    // this creates a new "thread," but doesn't make much sense to the untrained eye.
 //alert("123");

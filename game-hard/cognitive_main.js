@@ -759,7 +759,7 @@ function DrawWelcome()
     var cheight = c.height;
 	var cwidth = c.width;
     init_X = 	(cwidth-this.naturalWidth)/2;
-	init_Y = (cheight-this.naturalHeight)/2
+	init_Y = (cheight-this.naturalHeight)/2;
 
 
 		//ctx.scale(-1, 1);

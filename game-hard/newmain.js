@@ -1,14 +1,26 @@
+
 var mousePos="undefined";
+var args=1;
+var pairs = 0;
+var GridCordPrev = "undefined";
+var GridCordNext = "undefined";
 var loopCount = 0;
+var init_X;
+var init_Y;
+var startX = 308;
+var startY = 42;
 //var GridCurrent = "undefined";
 var GridLast = "undefined";
 var halted = "false";
+var imagedata;
+var background;
 var ADwidth = 160;
+var EmptyImage;
 var ADheight = 120;
 var bgLoaded = false;
 var validity = true;
 var ADPlacements;
-var startX = 328;
+
 var init_X;
 var init_Y;
 var contEnabled = true;
@@ -16,10 +28,10 @@ var uplock = true;
 var ADpool = new Array(4);
 var contSlot;
 var WelcomeSlot;
-var startY = 62;
 
-var dimension = 4;
-var gridD = 80;
+var threshold = 42;
+var dimension = 9; //9x9
+var gridD = 40;
 var picasso;
 var shadowMatrix;
 //var hardness = 0;
@@ -40,8 +52,61 @@ var eachGroup = dimension*dimension/symbolNum;
 //var fillCounter = new Array(symbolNum);
 //for(flag = 0;flag<symbolNum;flag++)
  //  fillCounter[flag] = eachGroup;
+ 
+ function IfGappedByOne(GridLeft, GridRight)
+{
+ if(GridLeft.x == GridRight.x && GridLeft.y == GridRight.y+2)
+    return true;
+	
+ if(GridLeft.x == GridRight.x && GridLeft.y == GridRight.y -2 )
+    return true;
+	
+ if(GridLeft.y == GridRight.y && GridLeft.x == GridRight.x -2)
+    return true;
+	
+  if(GridLeft.y == GridRight.y && GridLeft.x == GridRight.x +2)
+    return true;
+	
+	
+	return false;
+}
+function AdjacentOrNot( GridLeft,  GridRight){
+
+ if(GridLeft.x == GridRight.x && GridLeft.y == GridRight.y+1)
+    return true;
+	
+ if(GridLeft.x == GridRight.x && GridLeft.y == GridRight.y -1 )
+    return true;
+	
+ if(GridLeft.y == GridRight.y && GridLeft.x == GridRight.x -1)
+    return true;
+	
+  if(GridLeft.y == GridRight.y && GridLeft.x == GridRight.x +1)
+    return true;
+	
+	
+	return false;
+
+}
+function isUnique(cord_i, cord_j)
+{
+
+   if(cord_i-1>=0&&picasso[cord_i][cord_j]==picasso[cord_i-1][cord_j])
+     return false;
+	 
+	if(cord_i+1<dimension&&picasso[cord_i][cord_j]==picasso[cord_i+1][cord_j])
+	 return false;
+	
+	if(cord_j+1<dimension&&picasso[cord_i][cord_j] == picasso[cord_i][cord_j+1])
+	 return false;
+	 
+   if(cord_j-1>=0&&picasso[cord_i][cord_j] == picasso[cord_i][cord_j-1])
+     return false;
 
 
+    return true;	 
+	 
+}
 function getMousePos(canvas, evt) {
 
     var rect = canvas.getBoundingClientRect();
@@ -50,7 +115,123 @@ function getMousePos(canvas, evt) {
       y: evt.clientY - rect.top
     };
   }
+function countGaps(distance){
 
+    var counter = 0;
+	var i, j;
+	for(i=0;i<dimension-distance;i++)
+	{
+		for(j=0;j<dimension-distance;j++)
+		{
+			if(picasso[i][j]!=-1)
+			{
+			
+			 if(picasso[i][j] == picasso[i][j+distance]){
+				counter++;
+				}
+			 if(picasso[i][j] == picasso[i+distance][j]){
+			    counter++;
+			}
+			
+			}
+		
+		
+		}
+	
+	
+	}
+	//manipulate corner cases
+	var offset = 1;
+	for(offset = 1;offset<=distance;offset++){
+	for(j=0;j<dimension-distance;j++)
+	{
+	   if(picasso[dimension-offset][j]!=-1)
+	   {
+			if(picasso[dimension-offset][j]==picasso[dimension-offset][j+distance])
+				counter++;
+	   
+	   
+	   }
+	
+	}
+	for(i=0;i<dimension-distance;i++)
+	{
+		if(picasso[i][dimension-offset]!=-1)
+		{
+			if(picasso[i][dimension-offset]==picasso[i+distance][dimension-offset])
+				counter++;
+		
+		
+		}
+	
+	
+	
+	}
+	}
+	return counter;
+
+
+}
+
+function countPairs()
+{
+    var counter = 0;
+	var i,j;
+	for(i=0;i<dimension-1;i++)
+	{
+		for(j=0;j<dimension-1;j++)
+		{
+		
+		   if(picasso[i][j]!=-1){
+		    if(picasso[i][j] == picasso[i][j+1]){
+				counter++;
+				}
+			 if(picasso[i][j] == picasso[i+1][j]){
+			    counter++;
+			}
+			
+			}
+		}
+	
+	
+	
+	}
+	
+	for(j=0;j<dimension-1;j++)
+	{
+	   if(picasso[dimension-1][j]!=-1)
+	   {
+			if(picasso[dimension-1][j]==picasso[dimension-1][j+1])
+				counter++;
+	   
+	   
+	   }
+	
+	}
+	for(i=0;i<dimension-1;i++)
+	{
+		if(picasso[i][dimension-1]!=-1)
+		{
+			if(picasso[i][dimension-1]==picasso[i+1][dimension-1])
+				counter++;
+		
+		
+		}
+	
+	
+	
+	}
+	
+	//if(picasso[dimension-1][dimension-1]==picasso[dimension-2][dimension-1]&&picasso[dimension-1][dimension-1]==picasso[dimension-1][dimension-2])
+		//counter--;
+	
+	
+     
+	return counter;
+
+
+
+}
 function setCountDown()
 {
     var d = new Date();
@@ -307,7 +488,7 @@ function grayShadow()
 	 
 	var len = imgd.data.length;
     // alert(len);
-for(var i = 0;i<len;i+=4){
+for(i = 0;i<len;i+=4){
 
 
    	 var R =  imgd.data[i];
@@ -367,113 +548,46 @@ function flipBack(obj)
 
 function shadowPreload()
 {
-
-shadowMatrix = new Array(symbolNum);
-
-for(var i=1;i<=symbolNum;i++){
-	shadowMatrix[i] = new Image();
-	shadowMatrix[i].src = "box"+i+".jpg";  //alert(img);
-	shadowMatrix[i].shadowHer = function(x, y)
+ 
+	EmptyImage = new Image();
+	EmptyImage.src = "empty.jpg";  //alert(img);
+	EmptyImage.shadowHer = function(x, y)
 	{
 		var c = document.getElementById("myCanvas");
 		var context =  c.getContext('2d');
-		context.drawImage(this, x*gridD+startX, y*gridD+startY, gridD, gridD);
+		context.drawImage(this, x*gridD+startX, y*gridD+startY);
 	};
+	//empty image to cover the -1 grid
 	
-	shadowMatrix[i].shadowHerDetail = function(x, y, dx, dy, xoffset, yoffset)
-	{
-		var c = document.getElementById("myCanvas");
-		var context =  c.getContext('2d');
-		context.drawImage(this, x*gridD+startX+xoffset, y*gridD+startY+yoffset, dx, dy);
-	};
-
-	
-}
 
 
-emptyShadower = new Image();
-emptyShadower.src = "null.jpg";
-emptyShadower.shadowHer =function(x,y)
-{
-		var c = document.getElementById("myCanvas");
-		var context =  c.getContext('2d');
-		context.drawImage(this, x*gridD+startX, y*gridD+startY, gridD, gridD);
-
-};
-emptyShadower.shadowHerDetail = function(x, y, dx, dy,xoffset, yoffset)
-	{
-		var c = document.getElementById("myCanvas");
-		var context =  c.getContext('2d');
-		context.drawImage(this, x*gridD+startX+xoffset, y*gridD+startY+yoffset, dx, dy);
-	};
-
-blankShadower = new Image();
-blankShadower.src = "blank.jpg";
-blankShadower.shadowHer = function (x,y)
-{
-	var c = document.getElementById("myCanvas");
-	var context = c.getContext('2d');
-	context.drawImage(this, x*gridD+startX, y*gridD+startY, gridD, gridD);
-
-
-}
-	
-	
 }
 
 function enlightPicasso()
 {
     picasso = new Array(dimension);
-	//visible = new Array(dimension);
 	
 	var i = 0;
 	var j = 0;
-	//  var tank = 0;
+	  var tank = 0;
 	 
-    for(var i = 0;i<dimension;i++)
+    for(i = 0;i<dimension;i++)
    {
    
     picasso[i] = new Array(dimension);
-	//visible[i] = new Array(dimension);
-    for(var j=0;j<dimension;j++){
+    for(j=0;j<dimension;j++){
 	
-     picasso[i][j] = -1;
-	// visible[i][j] = -1;
+	//var img = new Image();
+	//img.src = "shape"+randomGenerator()+".jpg";  //alert(img);
+	//ctx.drawImage(img,j*30,i*30, 30, 30);
+	
+	 
+     picasso[i][j] = randomGenerator();
+		
+	 
 	 }
    }
-   
-   
-   for(var i=0; i<symbolNum;i++)
-	{
-	   // i indicates the symbol
-		for(var j=0;j<eachGroup;j++)
-		{
-		    //j indicates the num of the symbol tha that hasn't been assigned
-			  var dx = Math.floor(Math.random()*dimension);
-			  var dy = Math.floor(Math.random()*dimension);
-			
-			if(picasso[dx][dy] == -1)
-			{
-			    picasso[dx][dy] = i+1;
-			
-			}
-			
-			else{
-			
-			   j--;
-			
-			}
-			
-		
-		
-		}
-	
-	
-	}
-   
-   
-   /*
- if(hardness==0)
+ if(hardness==0){
    while(tank<30)
    {
    
@@ -494,7 +608,26 @@ function enlightPicasso()
    
    
    }
- */
+ 
+   for(i=0;i<dimension;i++)
+   {
+	for(j = 0;j<dimension; j++)
+	{
+	
+	   if(picasso[i][j]!=-1&&isUnique(i,j))
+		{
+			picasso[i][j] = -1;
+		
+		
+		}
+	
+	}
+   
+   
+   }
+ 
+ 
+ }
 }
 function whichGrid()
 {
@@ -519,6 +652,7 @@ function whichGrid()
 
 
 }
+
 function updateScoreTest()
 {
    
@@ -526,15 +660,17 @@ function updateScoreTest()
 
    var c = document.getElementById("score");
    var d = document.getElementById("discoveryPercent");
-  // var e = document.getElementById("totalPairs");
- //  pairs = countGaps(args);
-  // e.value = pairs;
+   var e = document.getElementById("totalPairs");
+   pairs = countGaps(args);
+   e.value = pairs;
    c.value = score;
-   d.value = score/((dimension*dimension)/2);
-   
+   d.value = score/(score+pairs);
+  // alert(d.value);
 
 
 }
+
+
 
 	function sleep(ms)
 	{
@@ -567,111 +703,121 @@ function updateScoreTest()
 */
 
 
+function unMarkGrid(grid_x, grid_y)
+{
+ 
+   MarkGrid(grid_x, grid_y);
+}
 
+
+function MarkGrid(grid_x, grid_y)
+{
+   //  alert("top of MarkGrid");
+  var c = document.getElementById("myCanvas");
+   //alert(c);
+  var ctx=c.getContext("2d");
+  //ctx.globalCompositeOperation = "destination-out";
+  //ctx.strokeStyle = "rgba(0,0,0,1)";
+  //  ctx.globalCompositeOperation = "destination-out";
+ //alert(imagedata);
+  var i = 0;
+  imagedata.data[0] = 255-imagedata.data[0];
+  imagedata.data[1] = 255-imagedata.data[1];
+  imagedata.data[2] = 255-imagedata.data[2];
+  
+ //   imagedata.data[3] = 255;
+  //alert("After calculating img data");
+ // imagedata.data[0] = 255-imagedata.data[0];
+  
+  //var j = 0;
+  for(i=0;i<gridD;i++)
+  {
+  
+    // alert("wtf");
+       ctx.putImageData(imagedata, grid_x*gridD+i+startX, grid_y*gridD+startY);
+  }
+   for(i=0;i<gridD;i++)
+  {
+       ctx.putImageData(imagedata, grid_x*gridD+gridD-1+startX, grid_y*gridD+i+startY);
+  }
+   for(i=0;i<gridD;i++)
+  {
+       ctx.putImageData(imagedata, grid_x*gridD+gridD-1-i+startX, grid_y*gridD+gridD-1+startY);
+  }
+  
+  for(i=0;i<gridD;i++)
+  {
+       ctx.putImageData(imagedata, grid_x*gridD+startX, grid_y*gridD+gridD-1-i+startY);
+  }
+  
+   //alert("After spiral painting");
+  
+
+
+}
 function makeSelection()
 {
 
-  // console.log('Entering make Selection()...');
-   if(halted=="true")
-      return;
+  GridCordNext = whichGrid();
+  //alert(GridCordNext);
+  if(GridCordNext=="undefined")
+	return;
+  if(picasso[GridCordNext.y][GridCordNext.x]== -1)
+  {
+       return;
+  
+  }
 
-    var greeting = whichGrid();
-    if(greeting=="undefined")
-		return;
-	if(GridLast=="undefined"){
-		//console.log('Clear State...');
-		if(picasso[greeting.y][greeting.x] != -1){
-		  GridLast = greeting;
+ // alert("top");
+  if(GridCordPrev == "undefined")
+  {
+      GridCordPrev = whichGrid();
+      MarkGrid(GridCordPrev.x, GridCordPrev.y);
+
+	  }
+
+   
+   else{
+   
+   
+  unMarkGrid(GridCordPrev.x, GridCordPrev.y);
+  // allClear();
+  GridCordNext = whichGrid();
+   
+   MarkGrid(GridCordNext.x, GridCordNext.y);
+   var checkfunction = AdjacentOrNot;
+   if(hardness == 2)
+    checkfunction = IfGappedByOne;
+   
+   if(checkfunction(GridCordPrev, GridCordNext) == true && picasso[GridCordPrev.y][GridCordPrev.x] == picasso[GridCordNext.y][GridCordNext.x])
+   {
+       //call function to clear both of these grids
+		// yes they are gone
 		
+	//	unMarkGrid(GridCordNext.x, GridCordNext.y);
 	
-		
-		  flip(400, shadowMatrix[picasso[greeting.y][greeting.x]], greeting, 1,0);
-		 //emptyShadower.shadowHer(greeting.x, greeting.y);
-	
-		
-		}
-	}
-	
-	else{
-	
-		//console.log('Dirty State...');
-		//alert(GridLast);
-		if(picasso[greeting.y][greeting.x] != -1)
-		{
-		
-		//   console.log('Dirty State: NOT displayed already...');
-		   
-		   if(greeting.x==GridLast.x &&greeting.y==GridLast.y)
-		   {
-		       return;
-		   
-		   }
-		   
-		   else if(picasso[greeting.y][greeting.x]==picasso[GridLast.y][GridLast.x])
-			{
-			
-			//console.log('Dirty State: two same symbols...');
-			flip(400, shadowMatrix[picasso[greeting.y][greeting.x]], greeting, 1, 1);
-			// shadowMatrix[picasso[greeting.y][greeting.x]].shadowHer(greeting.x, greeting.y);
-			 score++;
+   // GridCordPrev = "undefined";
+	//GridCordNext = "undefined";
+     EmptyImage.shadowHer(GridCordPrev.x, GridCordPrev.y);
+     EmptyImage.shadowHer(GridCordNext.x, GridCordNext.y);
+	 picasso[GridCordPrev.y][GridCordPrev.x] =-1;
+	  picasso[GridCordNext.y][GridCordNext.x] = -1;
+      score++;
 	  
-			updateScoreTest();
-			
-			
-			
-			 
-			 
-			 
-			}
-			
-			else{
-		//	   alert(GridLast);
-			//    console.log('Dirty State: two diff symbols, clean it...');
-			     halted = "true";
-			   flip(400, shadowMatrix[picasso[greeting.y][greeting.x]], greeting, 1, 2);
-			
-			//	alert(23);
-				
-				
-				
-				//alert(24);
-				
-			  
-			  //alert(25);
-			  
-			
-			  /*
-			  var t = window.setTimeout(function(){
-			},
-			  500);
-			  */
-			 
-			  
-			   
-			
-			}
-		
-		
-		 
-		}
-		
-		else{
-		  //console.log('Dirty State: YES Displayed already...');
-		    //console.log('Dirty State: two diff symbols, clean it...');  console.log('Dirty State: two diff symbols, clean it...');
-		   flipBack(GridLast);
-		   GridLast = "undefined";
-		}
-		
+	  updateScoreTest();
+	  //alert(score);
+	//alert("yahoo!");
+    //return;
+   }
+   
+   GridCordPrev = GridCordNext;
+   //GridCordNext = "undefined";
+   } 
+  
+   
+  //alert(123);
+ //alert(GridCord.x);alert("and");alert(GridCord.y);
 
-		
-		
-	
-	
-	}
-	
-	
-	
-	
 
 }
 
@@ -759,7 +905,7 @@ function DrawWelcome()
     var cheight = c.height;
 	var cwidth = c.width;
     init_X = 	(cwidth-this.naturalWidth)/2;
-	init_Y = (cheight-this.naturalHeight)/2;
+	init_Y = (cheight-this.naturalHeight)/2
 
 
 		//ctx.scale(-1, 1);
@@ -818,32 +964,31 @@ function ClearWhite()
 
 
 }
-
 function drawPicasso(){
      var c = document.getElementById("myCanvas");
    //alert(c);
       var ctx=c.getContext("2d");
   //alert(ctx);
   ImagePool = new Array(dimension);
- 
+  
   for(var i = 0;i<dimension;i++)
    {
-   ImagePool[i] = new Array(dimension);
+    ImagePool[i] = new Array(dimension);
     
-    for(var j=0;j<dimension;j++){
+    for(var j = 0;j<dimension;j++){
 	
 	ImagePool[i][j] = new Image();
-	//if(visible[i][j]==-1){
-	ImagePool[i][j].src = "null.jpg";  //alert(img);
+	if(picasso[i][j]==-1){
+	ImagePool[i][j].src = "empty.jpg";  //alert(img);
 	ImagePool[i][j].i = i;
 	ImagePool[i][j].j = j;
+	}
 	
-	
-	/*else{
-	ImagePool[i][j].src = "box"+picasso[i][j]+".jpg";  //alert(img);
+	else{
+	ImagePool[i][j].src = "shape"+picasso[i][j]+".jpg";  //alert(img);
 	ImagePool[i][j].i = i;
 	ImagePool[i][j].j = j;
-	}*/
+	}
     ImagePool[i][j].onload = function(){
         
       var c = document.getElementById("myCanvas");
@@ -854,23 +999,31 @@ function drawPicasso(){
     
 
 
-		//ctx.scale(-1, 1);
-	//	ctx.translate(width, 0);
-	//flipImage(image, ctx, 1, flipV);
       ctx.drawImage(this,this.j*gridD+startX,this.i*gridD+startY, gridD, gridD);
-	  //ctx.scale(-1, 1);
-	//  ctx.scale(-1, 1);
-     /* if(this.i==0&&this.j==0)
+      if(this.i==0&&this.j==0)
 	{
 
-		
-		 imagedata = ctx.getImageData(0, 0, 1, 1); 
-		 
+
+		 imagedata = ctx.getImageData(startX, startY, 1, 1); 
 	}    
-	*/
 
+
+  // execute drawImage statements here
     };
+	//alert(img.src);
+	/*while(1)
+	{
+	
+	  // alert(img.complete);
+	   if(img.complete)
+	      break;
+	
+	}*/
+	
+       
 
+	
+     
 	 
 	 
 	 }
@@ -1145,53 +1298,51 @@ function onloadHelper(event)
  //$('.mywidgets').hide();
  
 	
- 
+  var c = document.getElementById("myCanvas");
+	var context = c.getContext('2d');
    score = 0;
-   GridLast = "undefined";
+   GridCordPrev = "undefined";
+   GridCordNext = "undefined";
 	halted = "false";
    mousePos="undefined";
-   updateScoreTest();
+ //  updateScoreTest();
 
-   var c = document.getElementById("myCanvas");
-	var context = c.getContext('2d');
+   if(hardness==2)
+	args = 2;
+//do{
+  enlightPicasso();
+ // }
+ // while((pairs=countGaps(args))<threshold);
+   pairs=countGaps(args);
+   
+ //  alert("test");
+  // drawRandom();
+  shadowPreload();
+   drawPicasso();
 
-   if(loopCount>2)
+  
+  
+   var display = document.getElementById("totalPairs");
+   display.value = pairs;
+   var p = document.getElementById("discoveryPercent");
+   p.value = Math.round(score/(score+pairs));
+   
+   if(hardness==0)
    {
-	 var havead = document.getElementById("HaveAd");
-	 if(ADPlacements[loopCount-2-1]>0)
-	{
-		havead.value = "1";
-	}
-	else{
-		havead.value = "0";
-	
-	}
-   
-   
+   display = document.getElementById("Clock");
+   display.value = "10.000";
    }
-    
-	
-     enlightPicasso();
-	 shadowPreload();
-	// DrawAd();
-	 drawPicasso();
-	
-	 
-	  TimeLimit = 1000;
-	  setCountDown();
-	 
-      intervalHandler = setInterval(function(){StartCountDownThreadForCoolDown();}, 0);
-	 
-	c.addEventListener('mousemove', gameMouseHandler, false);
-
+   setCountDown();
+   intervalHandler = setInterval(function(){StartCountDownThreadForCoolDown();}, 0);
+  
 	/*	c.setAttribute('onClick', 'makeSelection();');
 		    return;*/
-		
+			c.addEventListener('mousemove', gameMouseHandler, false);
 
 
 
 }
-
+/*
    function animate(lastTime, startTime, endTime, objectGrid, subjectGrid, dx, dy, flag, callback) {
 	halted = "true";
 	 var date = new Date();
@@ -1292,7 +1443,7 @@ function onloadHelper(event)
         };
       })();
 
-	  
+	  */
 contMoveHandler =
 function(evt) {
 	if(validity == false)
@@ -1446,12 +1597,11 @@ contDownHandler = function(evt) {
 			
 				//mouseover event
 				//alert("gotcha");
-				uplock=true;
+				uplock = true;
 			//DrawContinue(1);
 		    validity = false;
 			 var c = document.getElementById("myCanvas");
-			
-			 	c.removeEventListener('mousemove',contMoveHandler);
+			 c.removeEventListener('mousemove',contMoveHandler);
 			c.removeEventListener('mousedown',contDownHandler);
 			c.removeEventListener('mouseup',contUpHanlder);
 			 	var context = c.getContext('2d');
