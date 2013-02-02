@@ -1160,7 +1160,7 @@ function onloadHelper(event)
 	 var havead = document.getElementById("HaveAd");
 	 if(ADPlacements[loopCount-2-1]>0)
 	{
-		havead.value = "1";
+		havead.value = ADPlacements[loopCount-2-1];
 	}
 	else{
 		havead.value = "0";

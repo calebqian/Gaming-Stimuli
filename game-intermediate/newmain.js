@@ -43,7 +43,7 @@ var intervalHandler;
 var countDownStart; // the time between Jan 1st, 1970 and the start
 var score = 0;
 if(hardness == 1){
- symbolNum = 8;
+ symbolNum = 5;
 // eachGroup = dimension*dimension/symbolNum;
  }
 //var visible;

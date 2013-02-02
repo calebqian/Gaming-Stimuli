@@ -42,10 +42,12 @@ var TimeLimit = 1000; //in ms
 var intervalHandler;
 var countDownStart; // the time between Jan 1st, 1970 and the start
 var score = 0;
-if(hardness == 1){
- symbolNum = 8;
+if(hardness == 1||hardness==2){
+ symbolNum = 5;
 // eachGroup = dimension*dimension/symbolNum;
  }
+ 
+ 
 //var visible;
 //var ImagePool;
 var eachGroup = dimension*dimension/symbolNum;
