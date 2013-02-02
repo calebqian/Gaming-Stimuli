@@ -1548,7 +1548,7 @@ window.onload = function()
 	}
 	
 	
-	alert(ADPlacements);
+//	alert(ADPlacements);
 
 	contSlot = new Image();
 	DrawWelcome();
