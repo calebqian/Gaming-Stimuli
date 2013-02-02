@@ -1312,6 +1312,22 @@ function onloadHelper(event)
    if(hardness==2)
 	args = 2;
 //do{
+
+  if(loopCount>2)
+   {
+	 var havead = document.getElementById("HaveAd");
+	 if(ADPlacements[loopCount-2-1]>0)
+	{
+		havead.value = ADPlacements[loopCount-2-1];
+	}
+	else{
+		havead.value = "0";
+	
+	}
+   
+   
+   }
+    
   enlightPicasso();
  // }
  // while((pairs=countGaps(args))<threshold);

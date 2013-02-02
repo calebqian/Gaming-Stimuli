@@ -3,8 +3,8 @@ var loopCount = 0;
 //var GridCurrent = "undefined";
 var GridLast = "undefined";
 var halted = "false";
-var ADwidth = 160;
-var ADheight = 120;
+var ADwidth = 200;
+var ADheight = 150;
 var bgLoaded = false;
 var validity = true;
 var ADPlacements;
@@ -1548,7 +1548,7 @@ window.onload = function()
 	}
 	
 	
-//	alert(ADPlacements);
+	alert(ADPlacements);
 
 	contSlot = new Image();
 	DrawWelcome();

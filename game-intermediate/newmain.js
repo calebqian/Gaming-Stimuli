@@ -14,9 +14,9 @@ var GridLast = "undefined";
 var halted = "false";
 var imagedata;
 var background;
-var ADwidth = 160;
+var ADwidth = 200;
 var EmptyImage;
-var ADheight = 120;
+var ADheight = 150;
 var bgLoaded = false;
 var validity = true;
 var ADPlacements;
@@ -42,7 +42,7 @@ var TimeLimit = 1000; //in ms
 var intervalHandler;
 var countDownStart; // the time between Jan 1st, 1970 and the start
 var score = 0;
-if(hardness == 1){
+if(hardness == 1||hardness == 2){
  symbolNum = 5;
 // eachGroup = dimension*dimension/symbolNum;
  }
@@ -1310,6 +1310,22 @@ function onloadHelper(event)
    if(hardness==2)
 	args = 2;
 //do{
+
+  if(loopCount>2)
+   {
+	 var havead = document.getElementById("HaveAd");
+	 if(ADPlacements[loopCount-2-1]>0)
+	{
+		havead.value = ADPlacements[loopCount-2-1];
+	}
+	else{
+		havead.value = "0";
+	
+	}
+   
+   
+   }
+    
   enlightPicasso();
  // }
  // while((pairs=countGaps(args))<threshold);
