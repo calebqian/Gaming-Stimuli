@@ -660,12 +660,12 @@ function updateScoreTest()
    
 
 
-   var c = document.getElementById("score");
+   var s = document.getElementById("score");
    var d = document.getElementById("discoveryPercent");
    var e = document.getElementById("totalPairs");
    pairs = countGaps(args);
    e.value = pairs;
-   c.value = score;
+   s.value = score;
    d.value = score/(score+pairs);
   // alert(d.value);
 
@@ -1303,7 +1303,7 @@ function onloadHelper(event)
   var c = document.getElementById("myCanvas");
 	var context = c.getContext('2d');
    score = 0;
-   pairs = 0;
+  // pairs = 0;
    GridCordPrev = "undefined";
    GridCordNext = "undefined";
 	halted = "false";
