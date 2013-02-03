@@ -37,7 +37,7 @@
 			//echo $total;
 			//echo $havead;
 			date_default_timezone_set('America/Chicago');
-				$current_time = date('m/d/Y h:i:s a');
+				$current_time = date('Y-m-d H:i:s');
 			 $stmt = $conn->prepare($sql_insert);
 			$stmt->bindValue(1, $gametype);
 			$stmt->bindValue(2, $pairs);
