@@ -1301,12 +1301,14 @@ function onloadHelper(event)
   var c = document.getElementById("myCanvas");
 	var context = c.getContext('2d');
    score = 0;
+   var s = document.getElementById("score");
+   s.value = score;
   // pairs = 0;
    GridCordPrev = "undefined";
    GridCordNext = "undefined";
 	halted = "false";
    mousePos="undefined";
-  updateScoreTest();
+  //updateScoreTest();
 
    if(hardness==2)
 	args = 2;
