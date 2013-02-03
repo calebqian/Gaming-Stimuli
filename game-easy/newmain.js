@@ -1302,6 +1302,7 @@ function onloadHelper(event)
   var c = document.getElementById("myCanvas");
 	var context = c.getContext('2d');
    score = 0;
+   pairs = 0;
    GridCordPrev = "undefined";
    GridCordNext = "undefined";
 	halted = "false";
