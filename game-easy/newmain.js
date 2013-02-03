@@ -1307,7 +1307,7 @@ function onloadHelper(event)
    GridCordNext = "undefined";
 	halted = "false";
    mousePos="undefined";
- //  updateScoreTest();
+   updateScoreTest();
 
    if(hardness==2)
 	args = 2;
