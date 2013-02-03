@@ -36,7 +36,7 @@
 			//echo $pairs;
 			//echo $total;
 			//echo $havead;
-				$current_time = date ('Y-m-d h:m');
+				$current_time = NOW();
 			 $stmt = $conn->prepare($sql_insert);
 			$stmt->bindValue(1, $gametype);
 			$stmt->bindValue(2, $pairs);
