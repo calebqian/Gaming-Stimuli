@@ -26,7 +26,7 @@
 	//echo $subnum;
 	$stmt = $conn->execute();
 	
-	if($stmt == true){
+	if($stmt){
 	  $sql_request = "COMMIT";
 	  $stmt = $conn->query($sql_request);
 	  
