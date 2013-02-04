@@ -28,7 +28,7 @@
 	$sql_request = "UPDATE subj SET subNum = :subNum WHERE ID = :ID";
 	$stmt = $conn->prepare($sql_request);
 		echo "good after 3\n";
-	$stmt = $conn->execute(array(':subNum' => $newsubnum, :ID => 1));
+	$stmt = $conn->execute(array(':subNum' => $newsubnum, ':ID' => '1'));
 		echo "good after 7";
 	
 	if($stmt){
