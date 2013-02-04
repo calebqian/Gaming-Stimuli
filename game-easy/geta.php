@@ -1,4 +1,4 @@
-<meta charset="UTF-8">
+
 <?php
   $host = "us-cdbr-azure-west-b.cleardb.com";
     $user = "b8f4d17ca45332";
@@ -24,7 +24,7 @@
 	$result = $stmt->fetch();
 //	echo "good after 2\n";
 	$newsubnum = $result['subNum']+1;
-	print_r("<html><input type='text' id='subNum' value='".$newsubnum."' /></html>");
+	print_r $newsubnum;
 //	echo "good after 4\n";
 	$sql_request = "UPDATE subj SET subNum = $newsubnum WHERE ID = 1";
 	$stmt = $conn->query($sql_request);
