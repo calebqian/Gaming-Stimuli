@@ -30,12 +30,12 @@
 		echo "good after 3\n";
 		if (!$stmt) {
     echo "\nPDO::errorInfo():\n";
-    print_r($dbh->errorInfo());
+    print_r($conn->errorInfo());
   }
 	$stmt = $conn->execute();
 		if (!$stmt) {
     echo "\nPDO::errorInfo():\n";
-    print_r($dbh->errorInfo());
+    print_r($conn->errorInfo());
   }
 		echo "good after 7";
 	
