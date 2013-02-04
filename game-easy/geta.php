@@ -22,12 +22,15 @@
 		echo "good after\n";
 	$result = $stmt->fetch();
 	echo "good after 2\n";
-	$sql_request = "UPDATE subj SET subNum = subNum + ? WHERE ID = ?";
-	$stmt = $conn->prepare($sql_request);
-	$stmt = $conn->execute(array(1, 1));
-	echo "good after 3\n";
-	echo $result['subNum']+1;
+	$newsubnum = $result['subNum']+1
+	echo $newsubnum;
 	echo "good after 4\n";
+	$sql_request = "UPDATE subj SET subNum = ? WHERE ID = ?";
+	$stmt = $conn->prepare($sql_request);
+		echo "good after 3\n";
+	$stmt = $conn->execute(array($newsubnum, 1));
+
+	
 	if($stmt){
 	echo "update success\n";
 	$conn->commit();
