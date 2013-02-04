@@ -1655,9 +1655,10 @@ contDownHandler = function(evt) {
 		
 			//alert(data);
            
-			  var c = document.getElementById('subnum');
-				c.value = 'Survey #: '+ data;
-            }
+			   
+				$('#subnum').val('Survey #: '+ data);
+				$('#sub').val(data);
+			}
         });
 		
 		}
