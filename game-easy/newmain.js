@@ -1653,6 +1653,7 @@ contDownHandler = function(evt) {
             success: function (data) {
 		//	alert("mark assigned");
               var myValue = $(data).find("input[id='subNum']").val();
+			  alert(myValue);
 			  var c = document.getElementById('subnum');
 				c.value = 'Your survey number is '+ myValue;
             }
