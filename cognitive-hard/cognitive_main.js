@@ -1470,7 +1470,25 @@ contDownHandler = function(evt) {
           //var message = 'Mouse position: ' + mousePos.x + ',' + mousePos.y;
          // writeMessage(c, message);
         };
+		function get_assigned()
+		{
+		   var frm = $('#contactForm2');
+		   $.ajax({
+            type: frm.attr('method'),
+            url: frm.attr('action'),
+            data: frm.serialize(),
+            success: function (data) {
+		//	alert("mark assigned");
 		
+			//alert(data);
+           
+			   
+				$('#subnum').val('Survey #: '+ data);
+				$('#sub').val(data);
+			}
+        });
+		
+		}
 		
 		
 	  function send_data()
@@ -1490,7 +1508,7 @@ contDownHandler = function(evt) {
 	  }
 window.onload = function()
 {
-
+	get_assigned();
 
     LoadAds();
 	//send_data();
