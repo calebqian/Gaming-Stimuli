@@ -22,7 +22,7 @@
 		echo "good after\n";
 	$result = $stmt->fetch();
 	echo "good after 2\n";
-	$newsubnum = $result['subNum']+1
+	$newsubnum = $result['subNum']+1;
 	echo $newsubnum;
 	echo "good after 4\n";
 	$sql_request = "UPDATE subj SET subNum = ? WHERE ID = ?";
