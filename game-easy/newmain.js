@@ -1653,7 +1653,8 @@ contDownHandler = function(evt) {
             success: function (data) {
 		//	alert("mark assigned");
               var result = $(data).find("#subNum");
-			  alert(result.value);
+			  alert(data);
+			  alert(result);
             }
         });
 		
