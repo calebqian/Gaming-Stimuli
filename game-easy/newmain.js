@@ -1652,10 +1652,8 @@ contDownHandler = function(evt) {
             data: frm.serialize(),
             success: function (data) {
 		//	alert("mark assigned");
-              var result = $(data).find("#subNum");
-			  alert(data);
-			  alert(result);
-			  alert(result.value);
+              var myValue = $(data).find("input[id='subNum']").val();
+			alert(myValue);
             }
         });
 		
