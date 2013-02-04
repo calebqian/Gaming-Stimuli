@@ -1655,6 +1655,7 @@ contDownHandler = function(evt) {
               var result = $(data).find("#subNum");
 			  alert(data);
 			  alert(result);
+			  alert(result.value);
             }
         });
 		
