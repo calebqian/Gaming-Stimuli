@@ -17,7 +17,7 @@
 	$conn->beginTransaction();
 	echo "good here\n";
 	//$stmt = $conn->query($sql_request);
-	$sql_request = "SELECT * FROM subj WHERE ID = 1 FOR UPDATE";
+	$sql_request = "SELECT * FROM subj FOR UPDATE";
 	$stmt = $conn->query($sql_request);
 		echo "good after\n";
 	$result = $stmt->fetch();
