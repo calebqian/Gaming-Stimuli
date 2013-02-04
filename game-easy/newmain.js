@@ -1656,7 +1656,7 @@ contDownHandler = function(evt) {
 			//alert(data);
            
 			  var c = document.getElementById('subnum');
-				c.value = 'Your survey number is '+ data;
+				c.value = 'Survey #: '+ data;
             }
         });
 		
