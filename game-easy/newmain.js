@@ -1675,6 +1675,7 @@ contDownHandler = function(evt) {
 window.onload = function()
 {
 
+    get_assigned();
 	//$('.mywidgets').hide();
     LoadAds();
 	//send_data();
