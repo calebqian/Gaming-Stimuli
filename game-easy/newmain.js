@@ -1653,11 +1653,10 @@ contDownHandler = function(evt) {
             success: function (data) {
 		//	alert("mark assigned");
 		
-			alert(data);
-              var myValue = $(data).find("input[id='subNum']").val();
-			  alert(myValue);
+			//alert(data);
+           
 			  var c = document.getElementById('subnum');
-				c.value = 'Your survey number is '+ myValue;
+				c.value = 'Your survey number is '+ data;
             }
         });
 		
