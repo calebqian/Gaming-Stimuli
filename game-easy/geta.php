@@ -13,27 +13,17 @@
     catch(Exception $e){
         die(var_dump($e));
     }
-	
+	echo "good here";
 	$sql_request = "START TRANSACTION";
 	$stmt = $conn->query($sql_request);
 	$sql_request = "SELECT subNum FROM subj WHERE ID = 1 FOR UPDATE";
 	$stmt = $conn->query($sql_request);
 	$result = $stmt->fetch();
-	$sql_request = "UPDATE subj SET subNum = subNum+1 WHERE ID = 1";
+	$sql_request = "UPDATE subj SET subNum = subNum+1 WHERE ID = 1; COMMIT";
 	$stmt = $conn->prepare($sql_request);
 	$stmt = $conn->execute();
-	$subnum = $result['subNum']+1;
-	echo $subnum;
-	
-	if($stmt){
-	  $sql_request = "COMMIT";
-	  $stmt = $conn->query($sql_request);
-	 }
-	else{
-		$sql_request = "ROLLBACK";
-		$stmt = $conn->query($sql_request);
-	  
-	}
+
+
 	
 	
 ?>
