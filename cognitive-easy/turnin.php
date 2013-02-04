@@ -38,6 +38,8 @@
 			//echo $havead;
 			date_default_timezone_set('America/Chicago');
 			$ip=$_SERVER['REMOTE_ADDR'];
+			var_dump($ip);
+			
 			$current_time = date('Y-m-d H:i:s');
 			 $stmt = $conn->prepare($sql_insert);
 			$stmt->bindValue(1, $gametype);
