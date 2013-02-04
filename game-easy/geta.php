@@ -28,6 +28,10 @@
 	$sql_request = "UPDATE subj SET subNum = $newsubnum WHERE ID = 1";
 	$stmt = $conn->prepare($sql_request);
 		echo "good after 3\n";
+		if (!$stmt) {
+    echo "\nPDO::errorInfo():\n";
+    print_r($dbh->errorInfo());
+}
 	$stmt = $conn->execute();
 		echo "good after 7";
 	
