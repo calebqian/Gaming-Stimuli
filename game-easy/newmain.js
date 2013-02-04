@@ -1652,7 +1652,8 @@ contDownHandler = function(evt) {
             data: frm.serialize(),
             success: function (data) {
 		//	alert("mark assigned");
-             alert(data);
+              var result = $(response).find("#subNum");
+			  alert(result);
             }
         });
 		
