@@ -19,7 +19,9 @@
 	//$stmt = $conn->query($sql_request);
 	$sql_request = "SELECT subNum FROM subj WHERE ID = 1 FOR UPDATE";
 	$stmt = $conn->query($sql_request);
+		echo "good after\n";
 	$result = $stmt->fetch();
+	echo "good after 2\n";
 	$sql_request = "UPDATE subj SET subNum = subNum+1 WHERE ID = 1";
 	$stmt = $conn->prepare($sql_request);
 	$stmt = $conn->execute();
