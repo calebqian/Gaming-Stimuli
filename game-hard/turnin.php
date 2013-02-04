@@ -29,20 +29,26 @@
 					//	echo "reached here 5";
 			$havead = intval($_POST['HaveAd']);
 					//	echo "reached here 6";
-			$sql_insert = "INSERT INTO survey (GameType, Pairs, Total, Percent, HaveAd) VALUES (?, ?, ?, ?, ?)";
+			$sql_insert = "INSERT INTO survey (GameType, Pairs, Total, Percent, HaveAd, submitdate, IP) VALUES (?, ?, ?, ?, ?, ?,?)";
 			
 			//echo "sql_insert sentence created.";
 			//echo $gametype;
 			//echo $pairs;
 			//echo $total;
 			//echo $havead;
-				
+			date_default_timezone_set('America/Chicago');
+			$ip=$_SERVER['REMOTE_ADDR'];
+			var_dump($ip);
+			
+			$current_time = date('Y-m-d H:i:s');
 			 $stmt = $conn->prepare($sql_insert);
 			$stmt->bindValue(1, $gametype);
 			$stmt->bindValue(2, $pairs);
 			$stmt->bindValue(3, $total);
 			$stmt->bindValue(4, $percent);
 			$stmt->bindValue(5, $havead);
+			$stmt->bindValue(6, $current_time);
+			$stmt->bindValue(7, $ip);
 			$stmt->execute();
 		
 		}
