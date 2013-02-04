@@ -25,7 +25,9 @@
 	$sql_request = "UPDATE subj SET subNum = subNum+1 WHERE ID = 1";
 	$stmt = $conn->prepare($sql_request);
 	$stmt = $conn->execute();
+	echo "good after 3\n";
 	echo $result['subNum']+1;
+	echo "good after 4\n";
 	if($stmt){
 	echo "update success\n";
 	$conn->commit();
@@ -34,7 +36,7 @@
 	
 	else{
 	
-		$conn->rollback();
+		$conn->rollBack();
 		echo "update fail\n";
 	}
 	
