@@ -24,7 +24,7 @@
 	$result = $stmt->fetch();
 //	echo "good after 2\n";
 	$newsubnum = $result['subNum']+1;
-	print_r $newsubnum;
+	print_r($newsubnum);
 //	echo "good after 4\n";
 	$sql_request = "UPDATE subj SET subNum = $newsubnum WHERE ID = 1";
 	$stmt = $conn->query($sql_request);
