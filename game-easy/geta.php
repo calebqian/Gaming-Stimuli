@@ -25,10 +25,10 @@
 	$newsubnum = $result['subNum']+1;
 	echo $newsubnum;
 	echo "good after 4\n";
-	$sql_request = "UPDATE subj SET subNum = :subNum WHERE ID = :ID";
+	$sql_request = "UPDATE subj SET subNum = $newsubnum WHERE ID = 1";
 	$stmt = $conn->prepare($sql_request);
 		echo "good after 3\n";
-	$stmt = $conn->execute(array(':subNum' => $newsubnum, ':ID' => '1'));
+	$stmt = $conn->execute();
 		echo "good after 7";
 	
 	if($stmt){
