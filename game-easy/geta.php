@@ -24,11 +24,11 @@
 	$result = $stmt->fetch();
 //	echo "good after 2\n";
 	$newsubnum = $result['subNum']+1;
-	echo $newsubnum;
+	print_r("<input type='text' id='subNum' value='".$newsubnum."' />");
 //	echo "good after 4\n";
 	$sql_request = "UPDATE subj SET subNum = $newsubnum WHERE ID = 1";
 	$stmt = $conn->query($sql_request);
-	 print_r($conn->errorInfo());
+	// print_r($conn->errorInfo());
 	//	echo "good after 3\n";
 	
 //	$stmt = $conn->execute();

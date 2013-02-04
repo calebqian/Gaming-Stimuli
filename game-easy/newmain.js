@@ -1651,7 +1651,7 @@ contDownHandler = function(evt) {
             url: frm.attr('action'),
             data: frm.serialize(),
             success: function (data) {
-			alert("mark assigned");
+		//	alert("mark assigned");
              alert(data);
             }
         });
