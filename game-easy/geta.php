@@ -14,33 +14,31 @@
         die(var_dump($e));
     }
 //	$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-	echo "good here";
+//	echo "good here";
 	$conn->beginTransaction();
-	echo "good here\n";
+//	echo "good here\n";
 	//$stmt = $conn->query($sql_request);
 	$sql_request = "SELECT * FROM subj FOR UPDATE";
 	$stmt = $conn->query($sql_request);
-		echo "good after\n";
+//		echo "good after\n";
 	$result = $stmt->fetch();
-	echo "good after 2\n";
+//	echo "good after 2\n";
 	$newsubnum = $result['subNum']+1;
 	echo $newsubnum;
-	echo "good after 4\n";
+//	echo "good after 4\n";
 	$sql_request = "UPDATE subj SET subNum = $newsubnum WHERE ID = 1";
 	$stmt = $conn->query($sql_request);
 	 print_r($conn->errorInfo());
-		echo "good after 3\n";
-		if (!$stmt) {
-    echo "\nPDO::errorInfo():\n";
-    print_r($conn->errorInfo());
-  }
+	//	echo "good after 3\n";
+	
 //	$stmt = $conn->execute();
-	 print_r($conn->errorInfo());
+//	 print_r($conn->errorInfo());
+//	 print_r($conn->errorInfo());
 
-		echo "good after 7";
+	//	echo "good after 7";
 	
 	if($stmt){
-	echo "update success\n";
+	//echo "update success\n";
 	$conn->commit();
 	
 	}
@@ -48,7 +46,7 @@
 	else{
 	
 		$conn->rollBack();
-		echo "update fail\n";
+	//	echo "update fail\n";
 	}
 	
 	
