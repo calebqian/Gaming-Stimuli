@@ -17,7 +17,7 @@
 	$conn->beginTransaction();
 	echo "good here\n";
 	//$stmt = $conn->query($sql_request);
-	$sql_request = "SELECT subNum FROM subj WHERE ID = 1 FOR UPDATE";
+	$sql_request = "SELECT * FROM subj WHERE ID = 1 FOR UPDATE";
 	$stmt = $conn->query($sql_request);
 		echo "good after\n";
 	$result = $stmt->fetch();
@@ -29,7 +29,7 @@
 	$stmt = $conn->prepare($sql_request);
 		echo "good after 3\n";
 	$stmt = $conn->execute(array($newsubnum, 1));
-
+		
 	
 	if($stmt){
 	echo "update success\n";
