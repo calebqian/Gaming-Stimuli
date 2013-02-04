@@ -13,6 +13,7 @@
     catch(Exception $e){
         die(var_dump($e));
     }
+//	$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 	echo "good here";
 	$conn->beginTransaction();
 	echo "good here\n";
@@ -25,7 +26,7 @@
 	$newsubnum = $result['subNum']+1;
 	echo $newsubnum;
 	echo "good after 4\n";
-	$sql_request = "UPDATE subj SET subNum = $newsubnum WHERE ID = 1";
+	$sql_request = "UPDATE subj SET subNum = $newsubnum WHERE ID IS 1";
 	$stmt = $conn->prepare($sql_request);
 	 print_r($conn->errorInfo());
 		echo "good after 3\n";
