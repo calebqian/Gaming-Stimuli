@@ -1296,7 +1296,7 @@ gameMouseHandler = function(evt) {
 		
 function onloadHelper(event)
 {
- //$('.mywidgets').hide();
+ 
  
 	
   var c = document.getElementById("myCanvas");
@@ -1643,7 +1643,19 @@ contDownHandler = function(evt) {
          // writeMessage(c, message);
         };
 		
+		function get_assigned()
+		{
+		   var frm = $('#contactForm2');
+		   $.ajax({
+            type: frm.attr('method'),
+            url: frm.attr('action'),
+            data: frm.serialize(),
+            success: function (data) {
+             alert(data);
+            }
+        });
 		
+		}
 		
 	  function send_data()
 	  {
@@ -1663,7 +1675,7 @@ contDownHandler = function(evt) {
 window.onload = function()
 {
 
-
+	//$('.mywidgets').hide();
     LoadAds();
 	//send_data();
     ADPlacements = new Array(30);

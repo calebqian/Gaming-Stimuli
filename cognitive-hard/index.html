@@ -62,12 +62,12 @@
 		
 		<form id="contactForm1" action = "turnin.php" method="POST">
 		
-	<input type="text" name="gametype" class="mywidgets" readonly="readonly" value="cognitive-hard">
- <input type="text"  name="myClock" class="mywidgets"  id="Clock" readonly ="readonly" value="12.000">
-<input type = "text"  name="Pairs" class="mywidgets"  id = "score" readonly = "readonly" value="0">
-<input name="Total" type = "text" id="totalPairs" readonly= "readonly" value = "8">
-<input type = "text"   name="Percent" class="mywidgets"  id="discoveryPercent" readonly ="readonly" value = "0"></br>
-<input type = "text" name="HaveAd" id="HaveAd" class="mywidgets" readonly="readonly" value="0">
+	<input type="text"  hidden = 'hidden' name="gametype" class="mywidgets" readonly="readonly" value="cognitive-hard">
+ <input type="text"    hidden = 'hidden' name="myClock" class="mywidgets"  id="Clock" readonly ="readonly" value="12.000">
+<input type = "text"  hidden = 'hidden' name="Pairs" class="mywidgets"  id = "score" readonly = "readonly" value="0">
+<input name="Total"  hidden = 'hidden' type = "text" id="totalPairs" readonly= "readonly" value = "8">
+<input type = "text"  hidden = 'hidden'  name="Percent" class="mywidgets"  id="discoveryPercent" readonly ="readonly" value = "0"></br>
+<input type = "text"  hidden = 'hidden' name="HaveAd" id="HaveAd" class="mywidgets" readonly="readonly" value="0">
 </form>
 <!--<input type = "button" id ="startButton" value="start" onClick="startNow();"> -->
 <p id="status_count">Game will start in 1 seconds...</p>
