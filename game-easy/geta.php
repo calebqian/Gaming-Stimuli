@@ -31,8 +31,12 @@
 		if (!$stmt) {
     echo "\nPDO::errorInfo():\n";
     print_r($dbh->errorInfo());
-}
+  }
 	$stmt = $conn->execute();
+		if (!$stmt) {
+    echo "\nPDO::errorInfo():\n";
+    print_r($dbh->errorInfo());
+  }
 		echo "good after 7";
 	
 	if($stmt){
