@@ -28,11 +28,12 @@
 	
 	if($stmt == true){
 	  $sql_request = "COMMIT";
-	  $stmt = conn->query($sql_request);
+	  $stmt = $conn->query($sql_request);
+	  
 	 }
 	else{
 		$sql_request = "ROLLBACK";
-		$stmt = conn->query($sql_request);
+		$stmt = $conn->query($sql_request);
 	  
 	}
 	
