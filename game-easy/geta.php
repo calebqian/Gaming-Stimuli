@@ -27,12 +27,14 @@
 	echo "good after 4\n";
 	$sql_request = "UPDATE subj SET subNum = $newsubnum WHERE ID = 1";
 	$stmt = $conn->prepare($sql_request);
+	 print_r($conn->errorInfo());
 		echo "good after 3\n";
 		if (!$stmt) {
     echo "\nPDO::errorInfo():\n";
     print_r($conn->errorInfo());
   }
 	$stmt = $conn->execute();
+	 print_r($conn->errorInfo());
 		if (!$stmt) {
     echo "\nPDO::errorInfo():\n";
     print_r($conn->errorInfo());
