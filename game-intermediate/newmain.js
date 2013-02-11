@@ -1619,6 +1619,7 @@ contDownHandler = function(evt) {
 				uplock = true;
 			//DrawContinue(1);
 		    validity = false;
+				$('#subnum').hide();
 			 var c = document.getElementById("myCanvas");
 			 c.removeEventListener('mousemove',contMoveHandler);
 			c.removeEventListener('mousedown',contDownHandler);
